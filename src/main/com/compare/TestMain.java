@@ -19,6 +19,6 @@ public class TestMain {
         oldData.add(new TestBean1("id2","hello2",1));
         CompareResult<TestBean1> compareResult = test1.compare(oldData,newData);
         System.out.println(compareResult);
-        System.out.println("");
+        System.out.println("branch1");
     }
 }
