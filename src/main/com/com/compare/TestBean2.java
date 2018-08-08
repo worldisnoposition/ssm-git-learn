@@ -1,5 +1,9 @@
-package compare;
+package com.compare;
 
+import org.springframework.stereotype.Component;
+
+@ComparableBean
+@Component
 public class TestBean2 {
     @Key
     private String id;
@@ -7,7 +11,9 @@ public class TestBean2 {
     private String hello;
     @Comparable
     private Integer testInt;
+    public TestBean2(){
 
+    }
     public String getHello() {
         return hello;
     }

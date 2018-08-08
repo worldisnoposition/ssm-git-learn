@@ -1,11 +1,10 @@
-package compare;
+package com.compare;
 
 import java.util.Collection;
 
-public class Test2 extends AbstractComparable {
-
-    public Test2(){
-        super(TestBean2.class);
+public class Test1<T> extends AbstractComparable {
+    public Test1(){
+        super();
     }
     @Override
     public void update(Collection toUpdate) {

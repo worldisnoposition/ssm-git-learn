@@ -1,11 +1,9 @@
-package compare;
+package com.compare;
 
-import org.codehaus.jackson.annotate.JsonTypeInfo;
 import org.springframework.util.Assert;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.concurrent.ConcurrentHashMap;
@@ -19,14 +17,11 @@ public abstract class AbstractComparable<T> {
 
     public abstract void save(Collection toSave);
 
-    public AbstractComparable(Class clazz) {
-        initCaches(clazz);
-        if (keysCache.get(clazz) == null || fieldsCache.get(clazz) == null) {
-            getKeysFields(clazz);
-        }
+    public AbstractComparable() {
+        initCaches();
     }
 
-    private void getKeysFields(Class<? extends AbstractComparable> clazz) {
+    public static void initKeysFields(Class clazz) {
         Field[] fields = clazz.getDeclaredFields();
         Collection<Field> comparables = new LinkedList<>();
         Collection<Field> keys = new LinkedList<>();
@@ -76,7 +71,7 @@ public abstract class AbstractComparable<T> {
     public boolean compareFields(Object o1, Object o2, ConcurrentHashMap<Class, Collection<Field>> cache) {
         System.out.println(o1.getClass() + "--" + o2.getClass());
         if (cache == null || cache.size() == 0) {
-            initCaches(o1.getClass());
+            initCaches();
         }
         Collection<Field> fields = cache.get(o1.getClass());
         Assert.notEmpty(fields);
@@ -92,7 +87,7 @@ public abstract class AbstractComparable<T> {
         return true;
     }
 
-    protected void initCaches(Class<?> aClass) {
+    public static void initCaches() {
         if (!HASINIT) {
             keysCache = new ConcurrentHashMap<>();
             fieldsCache = new ConcurrentHashMap<>();
