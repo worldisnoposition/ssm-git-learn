@@ -5,7 +5,9 @@ import org.springframework.util.Assert;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class AbstractComparable<T> {
@@ -55,7 +57,6 @@ public abstract class AbstractComparable<T> {
         for (Object oldData : oldDatas) {
             for (Object newData : newDatas) {
                 if (compareFields(newData, oldData, keysCache)) {
-                    System.out.println("同一个id");
                     if (!compareFields(newData, oldData, fieldsCache)) {
                         toUpdate.add(newData);
                     }
@@ -65,7 +66,45 @@ public abstract class AbstractComparable<T> {
             }
             toRemove.add(oldData);
         }
-        return new CompareResult<T>(toUpdate,toSave,toRemove);
+        return new CompareResult<T>(toUpdate, toSave, toRemove);
+    }
+
+    public CompareResult<T> compare2(Collection<T> oldDatas, Collection<T> newDatas) {
+        final Map oldDataMap = new HashMap();
+        final Map newDataMap = new HashMap();
+        oldDatas.forEach(d -> oldDataMap.put(getKey(d), d));
+        newDatas.forEach(d -> newDataMap.put(getKey(d), d));
+        return compare(oldDataMap, newDataMap);
+    }
+
+    protected String getKey(T oldData) {
+        Collection<Field> keyFields = keysCache.get(oldData.getClass());
+        if (keyFields == null || keyFields.size() == 0) {
+            initKeysFields(oldData.getClass());
+            keyFields = keysCache.get(oldData.getClass());
+        }
+        System.out.println(keyFields);
+        return keyFields.toString();
+    }
+
+    public CompareResult<T> compare(Map oldDatas, Map newDatas) {
+        Assert.notEmpty(oldDatas);
+        Assert.notEmpty(newDatas);
+        Collection toUpdate = new LinkedList();
+        Collection toSave = new LinkedList();
+        Collection toRemove = new LinkedList();
+        toSave.addAll(newDatas.values());
+        for (Object entry : oldDatas.entrySet()) {
+            Object oldData = ((Map.Entry) entry).getValue();
+            Object newData = newDatas.get(((Map.Entry) entry).getKey());
+            if (!compareFields(newData, oldData, fieldsCache)) {
+                toUpdate.add(newData);
+            } else {
+                toSave.remove(newData);
+            }
+            toRemove.add(oldData);
+        }
+        return new CompareResult<T>(toUpdate, toSave, toRemove);
     }
 
     public boolean compareFields(Object o1, Object o2, ConcurrentHashMap<Class, Collection<Field>> cache) {
