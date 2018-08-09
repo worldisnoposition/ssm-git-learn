@@ -17,7 +17,7 @@ public class TestMain {
         oldData.add(new TestBean1("id0","hello0",1));
         oldData.add(new TestBean1("id1","hello1",1));
         oldData.add(new TestBean1("id2","hello2",1));
-        CompareResult<TestBean1> compareResult = test1.compare(oldData,newData);
+        CompareResult<TestBean1> compareResult = test1.compare2(oldData,newData);
         System.out.println(compareResult);
         System.out.println("再测测");
     }

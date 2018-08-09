@@ -1,10 +1,14 @@
 package com.compare;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @ComparableBean
 @Component
 public class TestBean1 {
+    @Autowired
+    private TestBean2 testBean2;
+
     @Key
     private String id;
     @Comparable
@@ -33,5 +37,9 @@ public class TestBean1 {
 
     public void setTestInt(Integer testInt) {
         this.testInt = testInt;
+    }
+
+    public TestBean2 getTestBean2() {
+        return this.testBean2;
     }
 }

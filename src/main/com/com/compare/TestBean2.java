@@ -1,11 +1,13 @@
 package com.compare;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @ComparableBean
-@Component
+//@Component
 public class TestBean2 {
     @Key
+    @Value("这就是id")
     private String id;
     @Comparable
     private String hello;
@@ -14,6 +16,15 @@ public class TestBean2 {
     public TestBean2(){
 
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getHello() {
         return hello;
     }
