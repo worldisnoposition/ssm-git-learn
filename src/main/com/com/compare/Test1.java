@@ -2,7 +2,7 @@ package com.compare;
 
 import java.util.Collection;
 
-public class Test1<T> extends AbstractComparable {
+public class Test1<T> extends AbstractComparable<T> {
     public Test1(){
         super();
     }
@@ -13,7 +13,7 @@ public class Test1<T> extends AbstractComparable {
 
     @Override
     public void save(Collection toSave) {
-
+        System.out.println("save");
     }
 
 }
