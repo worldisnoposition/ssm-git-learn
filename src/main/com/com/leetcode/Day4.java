@@ -18,6 +18,16 @@ public class Day4 {
         }
     }
 
+    /**
+     * 起始点都在左边，然后一次移动k/2，同时k也减小k-k/2，直到k=1，停止。
+     * 取第k大的参数
+     * @param nums1
+     * @param start1
+     * @param nums2
+     * @param start2
+     * @param k
+     * @return
+     */
     private int findKth(int[] nums1, int start1, int[] nums2, int start2, int k) {
         if(start1 >= nums1.length) {
             return nums2[start2 + k - 1];
