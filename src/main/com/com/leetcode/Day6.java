@@ -62,4 +62,21 @@ public class Day6 {
         }
         return x<0?-result.intValue():result.intValue();
     }
+
+    /**
+     * 又做了一道初级题
+     * @param x
+     * @return
+     */
+    public boolean isPalindrome(int x) {
+        if(x<0){
+            return false;
+        }
+        int y=0,z=x;
+        while(x!=0){
+            y=y*10+x%10;
+            x/=10;
+        }
+        return y==z;
+    }
 }
