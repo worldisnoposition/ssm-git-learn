@@ -12,7 +12,7 @@ public class Day1 {
      * }
      * throw new IllegalArgumentException("No two sum solution");
      * }
-     *
+     * 取得数组里两个数的和等于目标数字的
      * @param nums
      * @param target
      * @return
@@ -80,7 +80,7 @@ public class Day1 {
      * return head.next;
      * <p>
      * }
-     *
+     *两个list求和（每个node相当与一位数字），输出倒序的list
      * @param l1
      * @param l2
      * @return

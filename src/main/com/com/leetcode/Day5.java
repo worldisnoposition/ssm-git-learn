@@ -13,6 +13,7 @@ public class Day5 {
         }
         String result = "";
         int b=numRows-1;
+
         for(int i=0;i<numRows;i++){
             int a = i;
             char c;
