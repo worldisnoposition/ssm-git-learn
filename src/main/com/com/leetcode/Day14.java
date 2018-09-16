@@ -1,9 +1,6 @@
 package com.leetcode;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 
 public class Day14 {
     /**
@@ -85,6 +82,28 @@ public class Day14 {
                 }
                 l1=l1.next;
             }
+        }
+    }
+    List<String> result = new ArrayList();
+
+    /**
+     * 一道中级题，我没做出来，虽然想到用递归，但是用的方法就不对，这个应该想到深度优先搜索dfs
+     * @param n
+     * @return
+     */
+    public List<String> generateParenthesis(int n) {
+        temp("",n,n);
+        return result;
+    }
+    public void temp(String s,int l,int r){
+        if(l>r)
+            return;
+        if(l>0)
+            temp(s+"(",l-1,r);
+        if(r>0)
+            temp(s+")",l,r-1);
+        if(l==0&&r==0){
+            result.add(s);
         }
     }
 }
