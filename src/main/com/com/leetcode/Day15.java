@@ -79,4 +79,40 @@ public class Day15 {
         second.next=head;
         return second;
     }
+
+    /**
+     * 写的不太优雅，但起码一道hard题是对的，基本思路也可以，我觉得算不上hard题，中级题吧
+     * 我用的递归，其实完全没必要，完全可以用循环实现，循环比递归少了方法调用以及临界值判断的次数，更快
+     * @param head
+     * @param k
+     * @return
+     */
+    public ListNode reverseKGroup(ListNode head, int k) {
+        if(k==0){
+            return head;
+        }
+        ListNode[] contain = new ListNode[k];
+        int i=0;
+        while(true){
+            if(i==k){
+                break;
+            }
+            if(head==null){
+                return contain[0];
+            }
+            contain[i]=head;
+            i++;
+            head=head.next;
+        }
+        for(int j=i;j>1;j--){
+            contain[j-1].next=contain[j-2];
+        }
+        if(head!=null&&head.next!=null){
+            contain[0].next=reverseKGroup(head,k);
+        }else{
+            contain[0].next = head;
+        }
+        return contain[i-1];
+
+    }
 }
