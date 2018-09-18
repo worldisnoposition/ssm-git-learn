@@ -37,4 +37,18 @@ public class Day2 {
         }
         return j;
     }
+
+    /**
+     * 是我误解了题意了吗，这是中级题的难度？
+     * @param dividend
+     * @param divisor
+     * @return
+     */
+    public int divide(int dividend, int divisor) {
+        Long result = (dividend+0L)/divisor;
+        if(result>Integer.MAX_VALUE){
+            return Integer.MAX_VALUE;
+        }
+        return result.intValue();
+    }
 }
