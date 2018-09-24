@@ -1,6 +1,80 @@
 package com.leetcode.week4;
 
+import java.util.*;
+
 public class Day1 {
+
+    public static void main(String[] args) {
+        longestValidParentheses1("(())()()");
+    }
+
+    /**
+     * 别人的实现
+     * @param s
+     * @return
+     */
+    public static int longestValidParentheses1(String s) {
+        char[] chars = s.toCharArray();
+        if(chars.length<0)
+            return 0;
+        int count = 0;
+        int[] countArray = new int[chars.length];
+        for(int i = 1;i<chars.length;i++){
+            if(chars[i]==')'){
+                int prevId = i-1-countArray[i-1];
+                if(prevId>-1&&chars[prevId]=='('){
+                    countArray[i] = (prevId==0)?i+1:countArray[prevId-1]+countArray[i-1]+2;
+                    count = Math.max(count,countArray[i]);
+                }
+            }
+        }
+        return count;
+    }
+
+    /**
+     * 我的实现
+     * @param s
+     * @return
+     */
+    public static int longestValidParentheses(String s) {
+        int result=0;
+        boolean[] remove = new boolean[s.length()];
+        LinkedList<Character> a = new LinkedList();
+        for(int i=0;i<s.length();i++){
+            if(a.size()>0&&a.getFirst()=='('&&s.charAt(i)==')'){
+                a.pop();
+                remove[i]=true;
+                removeLast(remove,i);
+            }else{
+                a.push(s.charAt(i));
+            }
+        }
+        int last = -1;
+        for(int i=0;i<remove.length;i++){
+            if(remove[i]){
+                if(last!=-1){
+                    if(result<i-last+1){
+                        result = i-last+1;
+                    }
+                }else{
+                    last=i;
+                }
+            }else{
+                last=-1;
+            }
+        }
+        return 0;
+    }
+
+    private static void removeLast(boolean[] remove, int i) {
+        for(i--;i>=0;i--){
+            if(!remove[i]){
+                remove[i]=true;
+                return;
+            }
+        }
+    }
+
     public int search(int[] nums, int target) {
         int result = -1,end;
         if((end=nums.length-1)<8){
@@ -161,7 +235,7 @@ public class Day1 {
     }
 
     /**
-     * 一道简单题，我居然超过了100%
+     * 一道简单题，我居然超过了100%熱4人铽额额额恶鹅鹅鹅鹅鹅鹅投入咕呱咕呱ggqwabggggggggggttt-
      * @param nums
      * @param target
      * @return
