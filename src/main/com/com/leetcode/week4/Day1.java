@@ -159,6 +159,29 @@ public class Day1 {
         }
         return res;
     }
+
+    /**
+     * 一道简单题，我居然超过了100%
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int searchInsert(int[] nums, int target) {
+        for(int i=0;i<nums.length;i++){
+            if(i<nums.length-1){
+                if(target<=nums[i]){
+                    return i;
+                }
+            }else{
+                if(target<=nums[i]){
+                    return i;
+                }else{
+                    return nums.length;
+                }
+            }
+        }
+        return 0;
+    }
 }
 
 /**
