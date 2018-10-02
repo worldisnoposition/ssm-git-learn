@@ -10,6 +10,7 @@ public class Day4 {
      * 3.2764531交换3，4位置
      * 4.2764135把4后面的531倒序为135
      * @param num
+     *
      */
     public void nextPermutation(int[] num) {
         //1.找到最后一个升序位置pos

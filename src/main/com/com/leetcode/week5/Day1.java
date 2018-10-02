@@ -1,6 +1,20 @@
 package com.leetcode.week5;
 
 public class Day1 {
+    public void solveSudoku(char[][] board) {
+        for(int i=0;i<9;i++) {
+            for (int j = 0; j < 9; j++) {
+                if (board[i][j] == '.') {
+                    for(char k='1';k<='9';k++){
+                        board[i][j]=k;
+                        if(isValidSudoku(board)){
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
     /**
      * 数独
      * 一道中级题，其实思想很快就想好了，但是编码时总是又疏忽，运行异常，

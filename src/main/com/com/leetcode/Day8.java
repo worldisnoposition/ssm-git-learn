@@ -55,6 +55,10 @@ public class Day8 {
         return false;// 所有条件都不满足，则直接返回FALSE
     }
 
+    public static void main(String[] args) {
+        Day8 d = new Day8();
+        d.isMatchDp("hahaha","ha*ha");
+    }
     /**
      * 动态规划算法，还没看懂这道题的解法
      * @param s
