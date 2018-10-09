@@ -4,6 +4,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class TestMain {
+    public int[] twoSum(int[] nums, int target) {
+        for(int i=0;i<nums.length;i++){
+            for(int j=i;i<nums.length;j++){
+                if((nums[i]+nums[j])==target){
+                    return new int[]{nums[i],nums[j]};
+                }
+            }
+        }
+        return null;
+    }
     public static void main(String[] args) {
         Test1 test1 = new Test1();
         Test2 test2 = new Test2();
