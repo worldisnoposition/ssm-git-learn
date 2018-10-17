@@ -1,5 +1,9 @@
 package com.leetcode.week7;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Day3 {
     /**
      * 我的思路简单暴力但不最优
@@ -42,5 +46,50 @@ public class Day3 {
                 matrix[i][n-1-j] = tmp;
             }
         }
+    }
+
+    /**
+     * week6 day2做的题稍微改了一下，但还是那个问题，传值应该用list一直传过去，而不是我这样每次遍历一次数组
+     * @param nums
+     * @return
+     */
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        List<List<Integer>> result = new ArrayList();
+        if(nums==null||nums.length==0){
+            return new ArrayList();
+        }else if(nums.length==1){
+            List<Integer> temp = new ArrayList();
+            temp.add(nums[0]);
+            result.add(temp);
+        }else{
+            Arrays.sort(nums);
+            for(int i=0;i<nums.length;i++){
+                if(i!=0&&nums[i]==nums[i-1]){
+                    continue;
+                }
+                int[] next = remove(nums, i);
+                List<List<Integer>> nextList = permuteUnique(next);
+                for(int j=0;j<nextList.size();j++){
+                    List<Integer> temp = new ArrayList();
+                    temp.add(nums[i]);
+                    temp.addAll(nextList.get(j));
+                    result.add(temp);
+                }
+            }
+        }
+        return result;
+    }
+    public int[] remove(int[] nums,int toremove){
+        if(nums!=null&&nums.length!=0){
+            int[] result = new int[nums.length-1];
+            for(int i=0,j=0;i<nums.length;i++){
+                if(i==toremove){
+                    continue;
+                }
+                result[j++]=nums[i];
+            }
+            return result;
+        }
+        return null;
     }
 }

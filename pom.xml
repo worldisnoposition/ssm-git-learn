@@ -150,6 +150,11 @@
       <artifactId>junit-jupiter-api</artifactId>
       <version>RELEASE</version>
     </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>2.5</version>
+    </dependency>
   </dependencies>
   <build>
     <!--最终生成的war文件名-->
