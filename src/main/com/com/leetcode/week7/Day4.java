@@ -8,7 +8,55 @@ public class Day4 {
 
     @Test
     public void a(){
-        System.out.println(multiply("2","2"));
+        System.out.println(isMatch("aab","c*a*b"));
+    }
+
+    /**
+     * 我用的递归方法应该是对的，但是超时了，正确答案是动态规划算法，我还需要看看
+     * 还额外学到一个小细节，把很多个连续的*优化成1个*。
+     * 动态规划算法明天再搞吧
+     * @param s
+     * @param p
+     * @return
+     */
+    public boolean isMatch(String s, String p) {
+        StringBuilder pp = new StringBuilder();
+        if(p.length()>1){
+            for(int i=1;i<p.length();i++){
+                if(p.charAt(i)!='*'||p.charAt(i-1)!='*'){
+                    pp.append(p.charAt(i));
+                }
+            }
+        }else if(p.length()==1){
+            return isMatch(s,p,0,0);
+        }
+        return isMatch(s,pp.toString(),0,0);
+    }
+    public boolean isMatch(String s,String p,int i,int j){
+        if(i==s.length()&&j==p.length()){
+            return true;
+        }
+        if(i>=s.length()){
+            for(;j<p.length();j++){
+                if('*'!=p.charAt(j)){
+                    return false;
+                }
+            }
+            return true;
+        }
+        if(i>=s.length()||j>=p.length()){
+            return false;
+        }
+        if(s.charAt(i)==p.charAt(j)||'?'==p.charAt(j)){
+            return isMatch(s,p,++i,++j);
+        }else if('*'==p.charAt(j)){
+            for(;i<s.length();){
+                if(isMatch(s,p,i,j+1)||isMatch(s,p,++i,j)){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
