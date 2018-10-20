@@ -45,4 +45,59 @@ public class Day6 {
         else
             return temp*temp/x;  // for n<0 it will start building from here
     }
+
+    /**
+     * 跳跃数组，我的答案非常慢侥幸通过了一次测试
+     * 实际上第一次抵达终点就可以判定通过了，而我这个做法做的太多次了
+     * @param num
+     * @return
+     */
+    public int jump(int[] num) {
+        if(num.length<=1){
+            return 0;
+        }
+        int[] result = new int[num.length];
+        for (int i = 0; i < num.length; i++) {
+            for (int j = 0; j < num[i]; j++) {
+                int t = i+j+1;
+                if(t>=num.length){
+                    break;
+                }
+                if (result[t] == 0 || result[t] > result[i]) {
+                    result[t] = result[i] + 1;
+                }
+            }
+        }
+        return result[num.length - 1];
+    }
+
+    /**
+     *
+     * @param nums
+     * @return
+     */
+    public int jump1(int[] nums) {
+        if (nums.length == 1) {
+            return 0;
+        }
+        int start = 0;
+        int end = 0;
+
+        int maxIdx = 0;
+        int step = 1;
+
+        while (start <= end) {
+            for (int i = start; i <= end; ++i) {
+                maxIdx = Math.max(maxIdx, nums[i] + i);
+            }
+            if (maxIdx >= nums.length - 1) {
+                return step;
+            }
+            step++;
+            start = end + 1;
+            end = maxIdx;
+        }
+
+        return 0;
+    }
 }
