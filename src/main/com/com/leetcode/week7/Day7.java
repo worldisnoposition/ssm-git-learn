@@ -3,7 +3,7 @@ package com.leetcode.week7;
 public class Day7 {
     public static void main(String[] args) {
         Day7 d =new Day7();
-        System.out.println(d.isMatch1("ho","**ho"));
+        System.out.println(d.isMatch2("ho","**ho"));
     }
     public boolean isMatch(String s, String p) {
         boolean[][] dp = new boolean[s.length()+1][p.length()+1];
@@ -60,6 +60,7 @@ public class Day7 {
                     f[i][j] = f[i - 1][j - 1] && (s.charAt(i - 1) == p.charAt(j - 1) || p.charAt(j - 1) == '?');
                 }
             }
+
         }
 
         return f[s.length()][p.length()];
