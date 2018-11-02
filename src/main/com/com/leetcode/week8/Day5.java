@@ -37,4 +37,32 @@ public class Day5 {
         }
         return true;
     }
+
+    /**
+     * 一道简单题超越了100%的人，耶
+     * @param nums
+     * @return
+     */
+    public int maxSubArray(int[] nums) {
+        int total = nums[0],result = nums[0];
+        for(int i=1;i<nums.length;i++){
+            if(nums[i]>=0){
+                if(total>=0){
+                    total +=nums[i];
+                }else{
+                    total = nums[i];
+                }
+            }else{
+                if(total+nums[i]>=0){
+                    total+=nums[i];
+                }else{
+                    total = nums[i];
+                }
+            }
+            if(total>result){
+                result = total;
+            }
+        }
+        return result;
+    }
 }
