@@ -1,5 +1,8 @@
 package com.leetcode.week8;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Day5 {
     int count=0;
 
@@ -62,6 +65,42 @@ public class Day5 {
             if(total>result){
                 result = total;
             }
+        }
+        return result;
+    }
+}
+class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        if(matrix.length==0){
+            return new ArrayList();
+        }
+        int[][] to = {{1,0},{0,1},{-1,0},{0,-1}};
+        int curser = 0,t=0;
+        List<Integer> result = new ArrayList();
+        int width = matrix[0].length,height = matrix.length,total = width*height;
+        for(int i=0,j=0;;){
+            // System.out.println(result);
+            // System.out.println(i+"-"+j+"-"+curser+"-"+width+"-"+height);
+            result.add(matrix[j][i]);
+            if(result.size()==total){
+                break;
+            }
+            if(curser==0&&i==width-1){
+                curser=1;
+                width--;
+            }else if(curser==1&&j==height-1){
+                curser=2;
+                height--;
+            }else if(curser==2&&i==t){
+                curser=3;
+                // width--;
+                t++;
+            }else if(curser==3&&j==t){
+                curser=0;
+                // height--;
+            }
+            i+=to[curser][0];
+            j+=to[curser][1];
         }
         return result;
     }
