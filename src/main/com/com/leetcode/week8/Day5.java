@@ -1,6 +1,7 @@
 package com.leetcode.week8;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Day5 {
@@ -70,6 +71,42 @@ public class Day5 {
     }
 }
 class Solution {
+    List<Integer> res;
+
+    /**
+     * 最优答案
+     * @param matrix
+     * @return
+     */
+    public List<Integer> spiralOrder1(int[][] matrix) {
+        res = new LinkedList<>();
+        int row = matrix.length;
+        if(row == 0) return res;
+        int column = matrix[0].length;
+        if(column == 0) return res;
+        //每次变向，走大循环
+        for(int s1 = 0, e1 = row - 1, s2 = 0, e2 = column -1; s1 <= e1 && s2 <= e2; s1++, s2++, e1--, e2--) {
+            //小循环遍历完一条边，结束
+            for(int i = s2; i <= e2; i++)
+                res.add(matrix[s1][i]);
+            for(int i = s1 + 1; i <= e1; i++)
+                res.add(matrix[i][e2]);
+            if(e1 > s1) {
+                for(int i = e2 - 1; i >= s2; i--)
+                    res.add(matrix[e1][i]);
+            }
+            if(e2 > s2) {
+                for(int i = e1 - 1; i >= s1 + 1; i--)
+                    res.add(matrix[i][s2]);
+            }
+        }
+        return res;
+    }
+    /**
+     * 我的答案
+     * @param matrix
+     * @return
+     */
     public List<Integer> spiralOrder(int[][] matrix) {
         if(matrix.length==0){
             return new ArrayList();
