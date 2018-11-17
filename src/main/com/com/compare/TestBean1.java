@@ -6,8 +6,6 @@ import org.springframework.stereotype.Component;
 @ComparableBean
 @Component
 public class TestBean1 {
-    @Autowired
-    private TestBean2 testBean2;
 
     @Key
     private String id;
@@ -39,7 +37,7 @@ public class TestBean1 {
         this.testInt = testInt;
     }
 
-    public TestBean2 getTestBean2() {
-        return this.testBean2;
-    }
+//    public TestBean2 getTestBean2() {
+//        return this.testBean2;
+//    }
 }

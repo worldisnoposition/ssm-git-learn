@@ -1,7 +1,11 @@
 package com.compare;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Collection;
 
+@Component
+//@ComparableBean
 public class Test1<T> extends AbstractComparable<T> {
     public Test1(){
         super();

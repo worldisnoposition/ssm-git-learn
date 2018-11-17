@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @ComparableBean
-//@Component
+@Component
 public class TestBean2 {
     @Key
     @Value("这就是id")

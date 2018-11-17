@@ -23,7 +23,7 @@ public abstract class AbstractComparable<T> {
         initCaches();
     }
 
-    public static void initKeysFields(Class clazz) {
+    public static synchronized void initKeysFields(Class clazz) {
         Field[] fields = clazz.getDeclaredFields();
         Collection<Field> comparables = new LinkedList<>();
         Collection<Field> keys = new LinkedList<>();
@@ -77,14 +77,23 @@ public abstract class AbstractComparable<T> {
         return compare(oldDataMap, newDataMap);
     }
 
-    protected String getKey(T oldData) {
-        Collection<Field> keyFields = keysCache.get(oldData.getClass());
-        if (keyFields == null || keyFields.size() == 0) {
-            initKeysFields(oldData.getClass());
-            keyFields = keysCache.get(oldData.getClass());
+    protected String getKey(final T oldData) {
+        try {
+            String combineKey = "";
+            Collection<Field> keyFields = keysCache.get(oldData.getClass());
+            if (keyFields == null || keyFields.size() == 0) {
+                initKeysFields(oldData.getClass());
+                keyFields = keysCache.get(oldData.getClass());
+            }
+            for (Field f : keyFields) {
+                combineKey += f.get(oldData).toString();
+            }
+            System.out.println(combineKey);
+            return combineKey;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
         }
-        System.out.println(keyFields);
-        return keyFields.toString();
     }
 
     public CompareResult<T> compare(Map oldDatas, Map newDatas) {
@@ -97,20 +106,31 @@ public abstract class AbstractComparable<T> {
         for (Object entry : oldDatas.entrySet()) {
             Object oldData = ((Map.Entry) entry).getValue();
             Object newData = newDatas.get(((Map.Entry) entry).getKey());
-            if (!compareFields(newData, oldData, fieldsCache)) {
-                toUpdate.add(newData);
-            } else {
-                toSave.remove(newData);
+            if(newData == null){
+                toRemove.add(oldData);
+            }else{
+                if (!compareFields(newData, oldData, fieldsCache)) {
+                    toUpdate.add(newData);
+                }
             }
-            toRemove.add(oldData);
+            toSave.remove(newData);
         }
+//        for (Object entry : newDatas.entrySet()) {
+//            Object oldData = oldDatas.get(((Map.Entry) entry).getKey());
+//            if(oldData == null){
+//                toSave.add(((Map.Entry) entry).getValue());
+//            }
+//        }
         return new CompareResult<T>(toUpdate, toSave, toRemove);
     }
 
     public boolean compareFields(Object o1, Object o2, ConcurrentHashMap<Class, Collection<Field>> cache) {
-        System.out.println(o1.getClass() + "--" + o2.getClass());
+//        System.out.println(o1.getClass() + "--" + o2.getClass());
         if (cache == null || cache.size() == 0) {
             initCaches();
+        }
+        if(o1 == null || o2 == null){
+            return false;
         }
         Collection<Field> fields = cache.get(o1.getClass());
         Assert.notEmpty(fields);
@@ -126,7 +146,7 @@ public abstract class AbstractComparable<T> {
         return true;
     }
 
-    public static void initCaches() {
+    public static synchronized void initCaches() {
         if (!HASINIT) {
             keysCache = new ConcurrentHashMap<>();
             fieldsCache = new ConcurrentHashMap<>();
