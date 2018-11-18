@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class FirstRestController {
     @Autowired
     private SpringContextUtil springContextUtil;
-    @RequestMapping(value = "/入口" , method = RequestMethod.GET)
+    @RequestMapping(value = "/" , method = RequestMethod.GET)
     public String html() {
         System.out.println("只有这种尝试成功了");
         //todo 往applicationContext里注册bean2
@@ -24,7 +24,7 @@ public class FirstRestController {
         springContextUtil.registBean(TestBean2.class);
         TestBean1 bean1 = (TestBean1)springContextUtil.getBean("testBean1_1");
         TestBean2 bean2_2 = (TestBean2)springContextUtil.getBean("testBean2");
-        bean2 = bean1.getTestBean2();
+//        bean2 = bean1.getTestBean2();
         System.out.println(bean2);
         return bean2.getId();
     }
