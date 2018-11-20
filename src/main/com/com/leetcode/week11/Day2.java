@@ -1,5 +1,8 @@
 package com.leetcode.week11;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Day2 {
     /**
      * 全排列的题目
@@ -24,5 +27,24 @@ public class Day2 {
             list.remove(index);
         }
         return result;
+    }
+
+    /**
+     * 矩阵中不重复的路径共有多少
+     * @param m
+     * @param n
+     * @return
+     */
+    public int uniquePaths(int m, int n) {
+        int[] t = new int[m];
+        for(int i=0;i<m;i++){
+            t[i] = 1;
+        }
+        for(int i=1;i<n;i++){
+            for(int j=1;j<m;j++){
+                t[j]=t[j]+t[j-1];
+            }
+        }
+        return t[m-1];
     }
 }
