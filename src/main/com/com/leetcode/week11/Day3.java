@@ -51,4 +51,45 @@ public class Day3 {
         }
         return digits;
     }
+
+    /**
+     * 数组加法，也不难
+     * @param a
+     * @param b
+     * @return
+     */
+    public String addBinary(String a, String b) {
+        if(a.length()<b.length()){
+            String c = a;
+            a=b;
+            b=c;
+        }
+        String result = "";
+        int c = 0;
+        int al = a.length(),bl=b.length();
+        for(int i=1;i<=a.length();i++){
+            if(i>b.length()){
+                c = a.charAt(al-i)+c-48;
+            }else{
+                c = a.charAt(al-i)+b.charAt(bl-i)+c-96;
+            }
+            if(c==0){
+                result = "0"+result;
+                c=0;
+            }else if(c==1){
+                result = "1"+result;
+                c=0;
+            }else if(c==2){
+                result = "0"+result;
+                c=1;
+            }else{
+                result = "1"+result;
+                c=1;
+            }
+        }
+        if(c==1){
+            result = "1"+result;
+        }
+        return result;
+    }
 }
