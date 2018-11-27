@@ -1,160 +1,44 @@
 package com.zhiye.vo;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Data;
+
+@Data
 public class ZhiyeVo {
-    
+    @JSONField(name = "第三方名")
     public String thirdName;
     public String url;
+    @JSONField(name = "第三方唯一标识")
     public String thirdNo;
+    @JSONField(name = "薪酬范围")
     public String moneyRange;
+    @JSONField(name = "薪酬上限")
     public String moneyHigh;
+    @JSONField(name = "薪酬下限")
     public String moneyLow;
+    @JSONField(name = "工作地点")
     public String address;
+    @JSONField(name = "职位")
     public String zhiwei;
+    @JSONField(name = "年限")
     public String workYears;
+    @JSONField(name = "学历")
     public String xueli;
-    public String yaoqiu;
+//    @JSONField(name = "要求")
+//    public String yaoqiu;
+    @JSONField(name = "公司名")
     public String companyName;
+    @JSONField(name = "公司规模")
     public String companySize;
+    @JSONField(name = "公司详情")
     public String companyDetail;
+    @JSONField(name = "职位日期")
     public String workTime;
+    @JSONField(name = "爬去日期")
     public String paquTime;
+    @JSONField(name = "其他信息")
     public String order;
 
-    public String getThirdName() {
-        return thirdName;
-    }
-
-    public void setThirdName(String thirdName) {
-        this.thirdName = thirdName;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getThirdNo() {
-        return thirdNo;
-    }
-
-    public void setThirdNo(String thirdNo) {
-        this.thirdNo = thirdNo;
-    }
-
-    public String getMoneyRange() {
-        return moneyRange;
-    }
-
-    public void setMoneyRange(String moneyRange) {
-        this.moneyRange = moneyRange;
-    }
-
-    public String getMoneyHigh() {
-        return moneyHigh;
-    }
-
-    public void setMoneyHigh(String moneyHigh) {
-        this.moneyHigh = moneyHigh;
-    }
-
-    public String getMoneyLow() {
-        return moneyLow;
-    }
-
-    public void setMoneyLow(String moneyLow) {
-        this.moneyLow = moneyLow;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getZhiwei() {
-        return zhiwei;
-    }
-
-    public void setZhiwei(String zhiwei) {
-        this.zhiwei = zhiwei;
-    }
-
-    public String getWorkYears() {
-        return workYears;
-    }
-
-    public void setWorkYears(String workYears) {
-        this.workYears = workYears;
-    }
-
-    public String getXueli() {
-        return xueli;
-    }
-
-    public void setXueli(String xueli) {
-        this.xueli = xueli;
-    }
-
-    public String getYaoqiu() {
-        return yaoqiu;
-    }
-
-    public void setYaoqiu(String yaoqiu) {
-        this.yaoqiu = yaoqiu;
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public String getCompanySize() {
-        return companySize;
-    }
-
-    public void setCompanySize(String companySize) {
-        this.companySize = companySize;
-    }
-
-    public String getCompanyDetail() {
-        return companyDetail;
-    }
-
-    public void setCompanyDetail(String companyDetail) {
-        this.companyDetail = companyDetail;
-    }
-
-    public String getWorkTime() {
-        return workTime;
-    }
-
-    public void setWorkTime(String workTime) {
-        this.workTime = workTime;
-    }
-
-    public String getPaquTime() {
-        return paquTime;
-    }
-
-    public void setPaquTime(String paquTime) {
-        this.paquTime = paquTime;
-    }
-
-    public String getOrder() {
-        return order;
-    }
-
-    public void setOrder(String order) {
-        this.order = order;
-    }
 }
 
 //{
