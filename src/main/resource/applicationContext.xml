@@ -48,6 +48,37 @@
         <property name="minPoolSize" value="10" />
     </bean>
 
+    <!--3 会话工厂bean sqlSessionFactoryBean -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 数据源 -->
+        <property name="dataSource" ref="dataSource"></property>
+        <!-- 别名 -->
+        <!--<property name="typeAliasesPackage" value="com.zhangguo.bookstore.entities"></property>-->
+        <!-- sql映射文件路径 -->
+        <property name="mapperLocations" value="classpath*:com/zhiye/dao/ZhiyeMapper.xml"></property>
+    </bean>
+
+    <!--4 自动扫描对象关系映射 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--指定会话工厂，如果当前上下文中只定义了一个则该属性可省去 -->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+        <!-- 指定要自动扫描接口的基础包，实现接口 -->
+        <property name="basePackage" value="com.zhiye.dao"></property>
+    </bean>
+
+    <!--5 声明式事务管理 -->
+    <!--定义事物管理器，由spring管理事务 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+    <!--支持注解驱动的事务管理，指定事务管理器 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!--&lt;!&ndash;6 容器自动扫描IOC组件  &ndash;&gt;-->
+    <!--<context:component-scan base-package="com"></context:component-scan>-->
+
+    <!--7 aspectj支持自动代理实现AOP功能 -->
+    <aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
     <!--<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">-->
         <!--&lt;!&ndash;dataSource属性指定要用到的连接池 &ndash;&gt;-->
         <!--<property name="dataSource" ref="dataSource" />-->
@@ -63,16 +94,6 @@
     <!--<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">-->
         <!--<constructor-arg index="0" ref="sqlSessionFactory" />-->
     <!--</bean>-->
-    <beans xmlns="http://www.springframework.org/schema/beans"
-           xmlns:context="http://www.springframework.org/schema/context"
-           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="
-        http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd">
-
-        <context:component-scan base-package="com"/>
         <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
             <property name="prefix">
                 <value>/WEB-INF/pages/</value>
@@ -81,21 +102,6 @@
                 <value>.html</value>
             </property>
         </bean>
-
-        <!-- 配置JDBC数据源的局部事务管理器 -->
-        <bean id="txManager"
-              class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-            <property name="dataSource" ref="dataSource" />
-        </bean>
-        <!-- 配置事务增强处理Bean，指定事务管理器 -->
-        <tx:advice id="txAdvice" transaction-manager="txManager">
-            <tx:attributes>
-                <!-- 所有已get开头的方法是只读的 -->
-                <!--     <tx:method name="get*" read-only="true" propagation="REQUIRED" /> -->
-                <!-- 其他方法使用默认的事务管理器 -->
-                <tx:method name="*" propagation="REQUIRED" />
-            </tx:attributes>
-        </tx:advice>
     </beans>
 
 
@@ -108,4 +114,3 @@
         <aop:advisor advice-ref="txAdvice" pointcut-ref="txPoint" />
     </aop:config>
     -->
-</beans>

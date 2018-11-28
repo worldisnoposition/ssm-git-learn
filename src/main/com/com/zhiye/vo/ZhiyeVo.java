@@ -35,7 +35,7 @@ public class ZhiyeVo {
     @JSONField(name = "职位日期")
     public String workTime;
     @JSONField(name = "爬去日期")
-    public String paquTime;
+    public String spiderTime;
     @JSONField(name = "其他信息")
     public String order;
 
