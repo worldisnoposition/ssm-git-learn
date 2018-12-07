@@ -7,11 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
-import java.net.URLDecoder;
 import java.util.List;
 
-@RestController
-@RequestMapping("/entry")
+//@RestController
+//@RequestMapping("/entry")
 public class EntryController {
     @Autowired
     private ZhiyeService zhiyeService;

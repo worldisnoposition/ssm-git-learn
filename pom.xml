@@ -166,6 +166,17 @@
       <artifactId>lombok</artifactId>
       <version>1.16.10</version>
     </dependency>
+    <dependency>
+      <groupId>com.alibaba.edas</groupId>
+      <artifactId>edas-sdk</artifactId>
+      <version>1.5.0</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>2.5</version>
+      <scope>provided</scope>
+    </dependency>
   </dependencies>
   <build>
     <!--最终生成的war文件名-->
