@@ -177,6 +177,16 @@
       <version>2.5</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>javax.ws.rs</groupId>
+      <artifactId>javax.ws.rs-api</artifactId>
+      <version>2.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.annotation</groupId>
+      <artifactId>javax.annotation-api</artifactId>
+      <version>1.2</version>
+    </dependency>
   </dependencies>
   <build>
     <!--最终生成的war文件名-->
