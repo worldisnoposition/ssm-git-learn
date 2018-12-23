@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.util.List;
 
-//@Component
+@Component
 public class ZhiyeServiceImpl implements ZhiyeService{
     @Resource
     private ZhiyeDAO zhiyeDAO;

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.io.*;
 import java.util.List;
 
-//@RestController
-//@RequestMapping("/entry")
+@RestController
+@RequestMapping("/entry")
 public class EntryController {
     @Autowired
     private ZhiyeService zhiyeService;

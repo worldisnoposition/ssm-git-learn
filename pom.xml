@@ -166,11 +166,11 @@
       <artifactId>lombok</artifactId>
       <version>1.16.10</version>
     </dependency>
-    <dependency>
-      <groupId>com.alibaba.edas</groupId>
-      <artifactId>edas-sdk</artifactId>
-      <version>1.5.0</version>
-    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>com.alibaba.edas</groupId>-->
+      <!--<artifactId>edas-sdk</artifactId>-->
+      <!--<version>1.5.0</version>-->
+    <!--</dependency>-->
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
@@ -187,6 +187,11 @@
       <artifactId>javax.annotation-api</artifactId>
       <version>1.2</version>
     </dependency>
+    <!--<dependency>-->
+      <!--<groupId>org.tensorflow</groupId>-->
+      <!--<artifactId>tensorflow</artifactId>-->
+      <!--<version>1.1.0</version>-->
+    <!--</dependency>-->
   </dependencies>
   <build>
     <!--最终生成的war文件名-->
