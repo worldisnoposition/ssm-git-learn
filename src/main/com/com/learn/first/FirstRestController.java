@@ -1,10 +1,9 @@
 package com.learn.first;
 
-import com.compare.TestBean1;
-import com.compare.TestBean2;
-import com.spring.SpringContextUtil;
+import com.create.compare.TestBean1;
+import com.create.compare.TestBean2;
+import com.learn.spring.SpringContextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;

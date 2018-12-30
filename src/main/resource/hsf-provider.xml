@@ -7,9 +7,9 @@
      http://www.taobao.com/hsf
      http://www.taobao.com/hsf/hsf.xsd" default-autowire="byName">
     <!-- 定义该服务的具体实现 -->
-    <bean id="itemService" class="com.hsf.ItemServiceImpl"/>
+    <bean id="itemService" class="com.learn.hsf.ItemServiceImpl"/>
     <!-- 用 hsf:provider 标签表明提供一个服务生产者 -->
-    <hsf:provider id="itemServiceProvider" interface="com.hsf.ItemService" ref="itemService"
+    <hsf:provider id="itemServiceProvider" interface="com.learn.hsf.ItemService" ref="itemService"
                   version="1.0.0">
     </hsf:provider>
 </beans>

@@ -17,7 +17,7 @@
         <!-- <typeAlias alias="User" type="com.wu.pojo.User"/> -->
         <!-- 根据包取别名，把包下面的所有类都按类名来取别名 -->
         <!-- 这用可以简化代码量 -->
-        <package name="com.zhiye"/>
+        <package name="com.learn.zhiye"/>
     </typeAliases>
 
 
@@ -44,6 +44,6 @@
         <!-- resource要写成路径 -->
         <mapper resource="com/zhiye/dao/ZhiyeMapper.xml"/>
         <!--<mapper resource="com/wu/dao/UserMapper.xml"/>-->
-        <!--<package name="com.zhiye.dao"/>&lt;!&ndash; ???用处？？？ &ndash;&gt;-->
+        <!--<package name="com.learnhiye.dao"/>&lt;!&ndash; ???用处？？？ &ndash;&gt;-->
     </mappers>
 </configuration>

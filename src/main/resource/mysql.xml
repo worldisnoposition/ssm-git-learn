@@ -25,7 +25,7 @@
         <!--<property name="loginTimeout" value="1000"/>-->
     <!--</bean>-->
     <!--多数据源-->
-    <bean id="dynamicDataSource" class="com.dynamic.datasource.DynamicDataSource">
+    <bean id="dynamicDataSource" class="com.learn.datasource.DynamicDataSource">
         <property name="targetDataSources">
             <map key-type="java.lang.String">
                 <entry key="fromDataSource" value-ref="fromDataSource"/>
