@@ -1,7 +1,3 @@
 [
-  {"projectId":"1","projectName":"firstProject","performId":"1-1","performName":"1-1perform","startTime":"2018-01-01 19:00:00","priceId":"1-1-1","priceName":"price1-1-1","price":99.99},
-  {"projectId":"2","projectName":"firstProject","performId":"2-1","performName":"2-1perform","startTime":"2018-01-01 19:00:00","priceId":"2-1-1","priceName":"price2-1-1","price":99.99},
-  {"projectId":"2","projectName":"firstProject","performId":"2-2","performName":"2-2perform","startTime":"2018-01-01 19:00:00","priceId":"2-2-1","priceName":"price1-1-1","price":99.99},
-  {"projectId":"3","projectName":"firstProject","performId":"3-1","performName":"3-1perform","startTime":"2018-01-01 19:00:00","priceId":"3-1-1","priceName":"price1-1-1","price":99.99},
   {"projectId":"3","projectName":"firstProject","performId":"3-1","performName":"3-1perform","startTime":"2018-01-01 19:00:00","priceId":"3-1-2","priceName":"price1-1-1","price":99.99}
 ]

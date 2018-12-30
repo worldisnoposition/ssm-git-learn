@@ -1,6 +1,8 @@
 package com.create.result;
 
 import lombok.Data;
+import org.springframework.web.bind.annotation.RequestMapping;
+import sun.misc.Perf;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -12,13 +14,15 @@ import java.util.List;
 public class ProjectRespDTO {
     private Integer code;
     private String message;
+    @Level(level = 1,type = ProjectDto.class)
     private LinkedList<ProjectDto> projectDtoList;
     private LinkedList<VenueDto> venueDtos;
     @Data
     public class ProjectDto{
         private String projectId;
         private String projectName;
-        private List<PerformDto> performDtos;
+        @Level(level = 2,type = PerformDto.class)
+        private LinkedList<PerformDto> performDtos;
     }
     @Data
     public class PerformDto{
@@ -26,6 +30,7 @@ public class ProjectRespDTO {
         private String performName;
         private String venueId;
         private Date startTime;
+        @Level(level = 3,type = PriceDto.class)
         private LinkedList<PriceDto> priceDtos;
     }
     @Data
