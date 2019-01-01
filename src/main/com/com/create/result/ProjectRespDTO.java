@@ -14,32 +14,39 @@ import java.util.List;
 public class ProjectRespDTO implements Target {
     private Integer code;
     private String message;
-    @Level(level = 1,type = ProjectDto.class)
     private LinkedList<ProjectDto> projectDtoList;
     private LinkedList<VenueDto> venueDtos;
+
+    @Override
+    public LinkedList getList() {
+        return projectDtoList;
+    }
+
     @Data
+    @Level(key = "projectId",level = 1)
     public class ProjectDto{
         private String projectId;
         private String projectName;
-        @Level(level = 2,type = PerformDto.class)
         private LinkedList<PerformDto> performDtos;
     }
     @Data
+    @Level(key = "performId",level = 2)
     public class PerformDto{
         private String performId;
         private String performName;
         private String venueId;
         private Date startTime;
-        @Level(level = 3,type = PriceDto.class)
         private LinkedList<PriceDto> priceDtos;
     }
     @Data
+    @Level(key = "priceId",level = 3)
     public class PriceDto{
         private String priceId;
         private String priceName;
         private BigDecimal price;
     }
     @Data
+    @Level(key = "venueId",level = 1)
     public class VenueDto{
         private String venueId;
         private String venueName;
