@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Data
-public class ProjectRespDTO {
+public class ProjectRespDTO implements Target {
     private Integer code;
     private String message;
     @Level(level = 1,type = ProjectDto.class)
