@@ -92,6 +92,7 @@ public class ResultTest {
             //没添加成功，就意味着要从上一级继续构建对象
             this.addParameterizedTypeObjectToList(field, target, priceEntity, (ParameterizedType) type);
         } else {
+            //todo 如果本身存在属性，需要进行判断，若不同则抛出错误
             this.setField(field, target, priceEntity);
         }
     }
@@ -99,6 +100,12 @@ public class ResultTest {
     private void setField(Field field, Object target, PriceEntity priceEntity) throws IllegalAccessException {
         Field entityField = entityFieldsMap.get(field.getName());
         if (entityField != null) {
+            Object doneFieldValue = field.get(target);
+            Object todoFieldValue = entityField.get(priceEntity);
+            if (doneFieldValue != null && (!doneFieldValue.equals(todoFieldValue))) {
+                System.out.println("doneFieldValue"+doneFieldValue+",todoFieldValue"+todoFieldValue);
+                throw new RuntimeException("属性值冲突");
+            }
             field.set(target, entityField.get(priceEntity));
         }
     }
@@ -124,7 +131,10 @@ public class ResultTest {
         if (list != null && list.size() > 0) {
             if (!this.isTheSameKey(list.getLast(), field, priceEntity, type)) {
                 //不同放到当前list中
-                list.add(this.buildParameterizeType(priceEntity, type.getTypeName()));
+                Object listElement = this.buildParameterizeType(priceEntity, type.getTypeName());
+                if(listElement != null){
+                    list.add(listElement);
+                }
             } else {
                 //相同设置到list最后一个对象中
                 this.fieldsSetting(list.getLast(), priceEntity);
@@ -132,7 +142,10 @@ public class ResultTest {
         } else {
             list = new LinkedList();
             field.set(target, list);
-            list.add(this.buildParameterizeType(priceEntity, type.getTypeName()));
+            Object listElement = this.buildParameterizeType(priceEntity, type.getTypeName());
+            if(listElement != null){
+                list.add(listElement);
+            }
         }
     }
 
@@ -154,16 +167,8 @@ public class ResultTest {
             if (entityId == null) {
                 return false;
             }
-            Object targetId = (String) keyField.get(target);
-
-            boolean result = entityId != null && entityId.equals(targetId);
-            System.out.println(entityId + "&&&&" + targetId);
-            if (!result) {
-                threadLocal.set(((ParameterizedType) field.getAnnotatedType().getType()).getActualTypeArguments()[0].getTypeName());
-            } else {
-
-            }
-            return result;
+            Object targetId = keyField.get(target);
+            return entityId != null && entityId.equals(targetId);
         }
     }
 

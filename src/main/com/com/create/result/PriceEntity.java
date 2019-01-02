@@ -15,4 +15,6 @@ public class PriceEntity {
     private String priceId;
     private String priceName;
     private BigDecimal price;
+    private String venueId;
+    private String venueName;
 }

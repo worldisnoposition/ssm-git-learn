@@ -15,12 +15,7 @@ public class ProjectRespDTO implements Target {
     private Integer code;
     private String message;
     private LinkedList<ProjectDto> projectDtoList;
-//    private LinkedList<VenueDto> venueDtos;
-
-    @Override
-    public LinkedList getList() {
-        return projectDtoList;
-    }
+    private LinkedList<VenueDto> venueDtos;
 
     @Data
     @Level(key = "projectId",level = 1)
