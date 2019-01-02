@@ -1,10 +1,8 @@
 package com.create.result;
 
 import com.alibaba.fastjson.JSONObject;
-import org.junit.jupiter.api.Test;
 
 import java.io.*;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
@@ -52,10 +50,7 @@ public class ResultTest {
     private Target buildTarget(List<PriceEntity> priceEntities) throws IllegalAccessException, InstantiationException, ClassNotFoundException, InvocationTargetException, NoSuchFieldException {
         Target target = new ProjectRespDTO();
         for (PriceEntity priceEntity : priceEntities) {
-            if(!this.fieldsSetting(target, priceEntity)){
-                System.out.println(threadLocal.get());
-                target.getList().add(this.buildParameterizeType(priceEntity,threadLocal.get().toString()));
-            }
+            this.fieldsSetting(target, priceEntity);
         }
         return target;
     }
@@ -84,26 +79,21 @@ public class ResultTest {
         return target;
     }
 
-    private boolean fieldsSetting(Object target, PriceEntity priceEntity) throws IllegalAccessException, InstantiationException, InvocationTargetException, ClassNotFoundException, NoSuchFieldException {
-        boolean result = true;
+    private void fieldsSetting(Object target, PriceEntity priceEntity) throws IllegalAccessException, InstantiationException, InvocationTargetException, ClassNotFoundException, NoSuchFieldException {
         for (Field field : this.getFields(target.getClass())) {
             field.setAccessible(true);//todo 如果上一步fields是缓存的结果，那么这一步可以省掉
-            result = result && this.setFieldOrAddToList(field, target, priceEntity);
+            this.setFieldOrAddToList(field, target, priceEntity);
         }
-        return result;
     }
 
-    private boolean setFieldOrAddToList(Field field, Object target, PriceEntity priceEntity) throws ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchFieldException {
+    private void setFieldOrAddToList(Field field, Object target, PriceEntity priceEntity) throws ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchFieldException {
         Type type = field.getAnnotatedType().getType();
         if (type instanceof ParameterizedType) {
             //没添加成功，就意味着要从上一级继续构建对象
-            if (!this.addParameterizedTypeObjectToList(field, target, priceEntity, (ParameterizedType) type)) {
-                return false;
-            }
+            this.addParameterizedTypeObjectToList(field, target, priceEntity, (ParameterizedType) type);
         } else {
             this.setField(field, target, priceEntity);
         }
-        return true;
     }
 
     private void setField(Field field, Object target, PriceEntity priceEntity) throws IllegalAccessException {
@@ -113,7 +103,7 @@ public class ResultTest {
         }
     }
 
-    private boolean addParameterizedTypeObjectToList(Field field, Object target, PriceEntity priceEntity, ParameterizedType parameterizedType) throws ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchFieldException {
+    private void addParameterizedTypeObjectToList(Field field, Object target, PriceEntity priceEntity, ParameterizedType parameterizedType) throws ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchFieldException {
         //泛型是可以嵌套的，这版暂时不做嵌套泛型适配，但可以报个错
         Type[] type = parameterizedType.getActualTypeArguments();
         if (type.length != 1) {
@@ -121,31 +111,29 @@ public class ResultTest {
         }
         if (parameterizedType.getRawType().equals(LinkedList.class)) {
             //todo这里set或者add到当前field的list中
-            LinkedList list = this.buildLinkedList(target, priceEntity, field, type[0]);
-            if (list == null) {
-                return false;
-            } else {
-                list.add(this.buildParameterizeType(priceEntity, type[0].getTypeName()));
-            }
+            this.setInToList(target, priceEntity, field, type[0]);
         } else {
             //如果不是list类型则正常设置属性
             this.setField(field, target, priceEntity);
         }
-        return true;
     }
 
-    private LinkedList buildLinkedList(Object target, PriceEntity priceEntity, Field field, Type type) throws IllegalAccessException, ClassNotFoundException, InstantiationException, InvocationTargetException, NoSuchFieldException {
+    private void setInToList(Object target, PriceEntity priceEntity, Field field, Type type) throws IllegalAccessException, ClassNotFoundException, InstantiationException, InvocationTargetException, NoSuchFieldException {
         //todo 获取需要对比的主键，从target的list中取得，
         LinkedList list = (LinkedList) field.get(target);
         if (list != null && list.size() > 0) {
             if (!this.isTheSameKey(list.getLast(), field, priceEntity, type)) {
-                return null;//这种表示不放到list中
+                //不同放到当前list中
+                list.add(this.buildParameterizeType(priceEntity, type.getTypeName()));
+            } else {
+                //相同设置到list最后一个对象中
+                this.fieldsSetting(list.getLast(), priceEntity);
             }
         } else {
             list = new LinkedList();
             field.set(target, list);
+            list.add(this.buildParameterizeType(priceEntity, type.getTypeName()));
         }
-        return list;
     }
 
     private boolean isTheSameKey(Object target, Field field, PriceEntity priceEntity, Type type) throws InvocationTargetException, ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchFieldException {
@@ -167,9 +155,13 @@ public class ResultTest {
                 return false;
             }
             Object targetId = (String) keyField.get(target);
+
             boolean result = entityId != null && entityId.equals(targetId);
-            if(!result){
-                threadLocal.set(((ParameterizedType)field.getAnnotatedType().getType()).getActualTypeArguments()[0].getTypeName());
+            System.out.println(entityId + "&&&&" + targetId);
+            if (!result) {
+                threadLocal.set(((ParameterizedType) field.getAnnotatedType().getType()).getActualTypeArguments()[0].getTypeName());
+            } else {
+
             }
             return result;
         }
