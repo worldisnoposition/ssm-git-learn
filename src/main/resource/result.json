@@ -7,9 +7,7 @@
     "startTime": "2018-01-01 19:00:00",
     "priceId": "1-1-1",
     "priceName": "price1-1-1",
-    "price": 99.99,
-    "venueId":"v-1",
-    "venueName":"v1_name"
+    "price": 99.99
   },
   {
     "projectId": "1",
@@ -19,9 +17,7 @@
     "startTime": "2018-01-01 19:00:00",
     "priceId": "2-1-1",
     "priceName": "price2-1-1",
-    "price": 99.99,
-    "venueId":"v-2",
-    "venueName":"v2_name"
+    "price": 99.99
   },
   {
     "projectId": "2",
@@ -31,9 +27,7 @@
     "startTime": "2018-01-01 19:00:00",
     "priceId": "2-2-1",
     "priceName": "price1-1-1",
-    "price": 99.99,
-    "venueId":"v-3",
-    "venueName":"v3_name"
+    "price": 99.99
   },
   {
     "projectId": "3",
@@ -43,9 +37,7 @@
     "startTime": "2018-01-01 19:00:00",
     "priceId": "3-1-1",
     "priceName": "price1-1-1",
-    "price": 99.99,
-    "venueId":"v-4",
-    "venueName":"v4_name"
+    "price": 99.99
   },
   {
     "projectId": "3",
@@ -55,8 +47,6 @@
     "startTime": "2018-01-01 19:00:00",
     "priceId": "3-1-2",
     "priceName": "price1-1-1",
-    "price": 99.99,
-    "venueId":"v-5",
-    "venueName":"v5_name"
+    "price": 99.99
   }
 ]

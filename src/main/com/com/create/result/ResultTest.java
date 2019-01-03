@@ -68,8 +68,11 @@ public class ResultTest {
      */
     private Object buildParameterizeType(PriceEntity priceEntity, String typeName) throws IllegalAccessException, ClassNotFoundException, InstantiationException, InvocationTargetException, NoSuchFieldException {
         Object target = buildParameterizeTypeObjectByTypeName(typeName);
-        this.fieldsSetting(target, priceEntity);
-        return target;
+        if(this.fieldsSetting(target, priceEntity)) {
+            return target;
+        }else{
+            return null;
+        }
     }
 
     private Object buildParameterizeTypeObjectByTypeName(String typeName) throws IllegalAccessException, InvocationTargetException, InstantiationException, ClassNotFoundException {
@@ -79,25 +82,27 @@ public class ResultTest {
         return target;
     }
 
-    private void fieldsSetting(Object target, PriceEntity priceEntity) throws IllegalAccessException, InstantiationException, InvocationTargetException, ClassNotFoundException, NoSuchFieldException {
+    private boolean fieldsSetting(Object target, PriceEntity priceEntity) throws IllegalAccessException, InstantiationException, InvocationTargetException, ClassNotFoundException, NoSuchFieldException {
+        boolean result = false;
         for (Field field : this.getFields(target.getClass())) {
             field.setAccessible(true);//todo 如果上一步fields是缓存的结果，那么这一步可以省掉
-            this.setFieldOrAddToList(field, target, priceEntity);
+            result = this.setFieldOrAddToList(field, target, priceEntity) || result;
         }
+        return result;
     }
 
-    private void setFieldOrAddToList(Field field, Object target, PriceEntity priceEntity) throws ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchFieldException {
+    private boolean setFieldOrAddToList(Field field, Object target, PriceEntity priceEntity) throws ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchFieldException {
         Type type = field.getAnnotatedType().getType();
         if (type instanceof ParameterizedType) {
             //没添加成功，就意味着要从上一级继续构建对象
-            this.addParameterizedTypeObjectToList(field, target, priceEntity, (ParameterizedType) type);
+            return this.addParameterizedTypeObjectToList(field, target, priceEntity, (ParameterizedType) type);
         } else {
             //todo 如果本身存在属性，需要进行判断，若不同则抛出错误
-            this.setField(field, target, priceEntity);
+            return this.setField(field, target, priceEntity);
         }
     }
 
-    private void setField(Field field, Object target, PriceEntity priceEntity) throws IllegalAccessException {
+    private boolean setField(Field field, Object target, PriceEntity priceEntity) throws IllegalAccessException {
         Field entityField = entityFieldsMap.get(field.getName());
         if (entityField != null) {
             Object doneFieldValue = field.get(target);
@@ -106,11 +111,18 @@ public class ResultTest {
                 System.out.println("doneFieldValue"+doneFieldValue+",todoFieldValue"+todoFieldValue);
                 throw new RuntimeException("属性值冲突");
             }
-            field.set(target, entityField.get(priceEntity));
+            Object fieldValue = entityField.get(priceEntity);
+            if(fieldValue == null){
+                return false;
+            }else {
+                field.set(target, fieldValue);
+                return true;
+            }
         }
+        return false;
     }
 
-    private void addParameterizedTypeObjectToList(Field field, Object target, PriceEntity priceEntity, ParameterizedType parameterizedType) throws ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchFieldException {
+    private boolean addParameterizedTypeObjectToList(Field field, Object target, PriceEntity priceEntity, ParameterizedType parameterizedType) throws ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchFieldException {
         //泛型是可以嵌套的，这版暂时不做嵌套泛型适配，但可以报个错
         Type[] type = parameterizedType.getActualTypeArguments();
         if (type.length != 1) {
@@ -118,14 +130,14 @@ public class ResultTest {
         }
         if (parameterizedType.getRawType().equals(LinkedList.class)) {
             //todo这里set或者add到当前field的list中
-            this.setInToList(target, priceEntity, field, type[0]);
+            return this.setInToList(target, priceEntity, field, type[0]);
         } else {
             //如果不是list类型则正常设置属性
-            this.setField(field, target, priceEntity);
+            return this.setField(field, target, priceEntity);
         }
     }
 
-    private void setInToList(Object target, PriceEntity priceEntity, Field field, Type type) throws IllegalAccessException, ClassNotFoundException, InstantiationException, InvocationTargetException, NoSuchFieldException {
+    private boolean setInToList(Object target, PriceEntity priceEntity, Field field, Type type) throws IllegalAccessException, ClassNotFoundException, InstantiationException, InvocationTargetException, NoSuchFieldException {
         //todo 获取需要对比的主键，从target的list中取得，
         LinkedList list = (LinkedList) field.get(target);
         if (list != null && list.size() > 0) {
@@ -134,10 +146,12 @@ public class ResultTest {
                 Object listElement = this.buildParameterizeType(priceEntity, type.getTypeName());
                 if(listElement != null){
                     list.add(listElement);
+                    return true;
                 }
+                return false;
             } else {
                 //相同设置到list最后一个对象中
-                this.fieldsSetting(list.getLast(), priceEntity);
+                return this.fieldsSetting(list.getLast(), priceEntity);
             }
         } else {
             list = new LinkedList();
@@ -145,7 +159,9 @@ public class ResultTest {
             Object listElement = this.buildParameterizeType(priceEntity, type.getTypeName());
             if(listElement != null){
                 list.add(listElement);
+                return true;
             }
+            return false;
         }
     }
 
