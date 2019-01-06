@@ -42,7 +42,7 @@
     <!-- pojo的映射文件UserMapper引入到配入到配置文件中 -->
     <mappers>
         <!-- resource要写成路径 -->
-        <mapper resource="com/zhiye/dao/ZhiyeMapper.xml"/>
+        <mapper resource="com/learn/zhiye/dao/ZhiyeMapper.xml"/>
         <!--<mapper resource="com/wu/dao/UserMapper.xml"/>-->
         <!--<package name="com.learnhiye.dao"/>&lt;!&ndash; ???用处？？？ &ndash;&gt;-->
     </mappers>
