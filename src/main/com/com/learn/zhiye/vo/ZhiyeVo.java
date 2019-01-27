@@ -34,10 +34,14 @@ public class ZhiyeVo {
     public String companyDetail;
     @JSONField(name = "职位日期")
     public String workTime;
-    @JSONField(name = "爬去日期")
+    @JSONField(name = "爬取日期")
     public String spiderTime;
     @JSONField(name = "其他信息")
     public String order;
+    @JSONField(name = "福利")
+    public String fuli;
+    @JSONField(name = "公司唯一标识")
+    public String companyNo;
 
 }
 
