@@ -1,21 +1,75 @@
 package com.learn.zhiye.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.learn.websocket.WebSocketServiceImpl;
 import com.learn.zhiye.service.ZhiyeService;
 import com.learn.zhiye.vo.ZhiyeVo;
+import org.springframework.aop.framework.AopContext;
+import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.io.*;
+import java.net.URLDecoder;
 import java.util.List;
 
 @RestController
 @RequestMapping("/entry")
 public class EntryController {
+    public static void main(String[] args) {
+        int a=5;
+        System.out.println(a++);
+        int[] nums = {1,1,1,2,2,2,2,3,3,3};
+        int result = 2;
+        if(nums.length<2){
+            System.out.println("result:"+nums.length);
+            return ;
+        }
+        for(int i=2;i<nums.length;i++){
+            System.out.println("=======================");
+            System.out.println(JSONObject.toJSONString(nums));
+            System.out.println("i:"+i+",result:"+result);
+            if(nums[i] != nums[result-2]){
+                nums[result++] = nums[i];
+                System.out.println(JSONObject.toJSONString(nums));
+            }
+
+        }
+        System.out.println("result:"+nums.length);
+        return ;
+    }
     @Autowired
     private ZhiyeService zhiyeService;
 
-    @RequestMapping(name="/a",method = RequestMethod.POST,produces = "application/json; charset=UTF-8")
+    @Resource
+    private WebSocketServiceImpl webSocketService;
+    @PostConstruct
+    public void init(){
+        System.out.println("init EntryController成功");
+
+        System.out.println(AopUtils.isAopProxy(this));
+        System.out.println(AopUtils.isCglibProxy(this));
+        System.out.println(AopUtils.isJdkDynamicProxy(this));
+    }
+    @RequestMapping(value="/chufa",name="/chufa",method = RequestMethod.POST,produces = "application/json; charset=UTF-8")
+    public String chufa(@RequestBody String param) throws IOException, InterruptedException {
+//        Object o = AopContext.currentProxy();
+        String a = URLDecoder.decode(param,"utf-8");
+        System.out.println(a+"");
+        System.out.println(AopUtils.isAopProxy(this));
+        System.out.println(AopUtils.isCglibProxy(this));
+        System.out.println(AopUtils.isJdkDynamicProxy(this));
+//        AopUtils.isCglibProxy() //cglib
+//        AopUtils.isJdkDynamicProxy()
+        for(int i=0;i<10;i++){
+            webSocketService.chufa(i);
+        }
+        return null;
+    }
+
+    @RequestMapping(value="/a",name="/a",method = RequestMethod.POST,produces = "application/json; charset=UTF-8")
     public String entry(@RequestBody String param) throws UnsupportedEncodingException {
 //        param = URLDecoder.decode(param);
 //        param = new String(param,)

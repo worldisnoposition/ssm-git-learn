@@ -1,6 +1,7 @@
 package com.spi;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.ServiceLoader;
 
 public class MainClass {
@@ -11,7 +12,6 @@ public class MainClass {
         System.out.println(plus.operation(5, 3));
 
         System.out.println(division.operation(9, 3));
-
         //可以在这里动态加载类
         ServiceLoader<IOperation> operations = ServiceLoader.load(IOperation.class);
         Iterator<IOperation> operationIterator = operations.iterator();

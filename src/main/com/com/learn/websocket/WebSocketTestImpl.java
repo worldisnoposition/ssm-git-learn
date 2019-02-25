@@ -1,30 +1,38 @@
 package com.learn.websocket;
 
 import com.alibaba.fastjson.JSONObject;
+import org.springframework.aop.framework.AopContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Component
 @ServerEndpoint("/webSocket/{username}")
-public class WebSocketTest {
+public class WebSocketTestImpl implements WebSocketTestService{
     private static int onlineCount = 0;
-    private static Map<String, WebSocketTest> clients = new ConcurrentHashMap<String, WebSocketTest>();
+    public static Map<String, WebSocketTestImpl> clients = new ConcurrentHashMap<String, WebSocketTestImpl>();
     private Session session;
     private String username;
-    public static void chufa() throws IOException {
-//        WebSocketTest ws = new WebSocketTest();
-        WebSocketTest ws = clients.values().iterator().next();
-        JSONObject jo = new JSONObject();
-        jo.put("message", "这是后台返回的消息！");
-        jo.put("To","haha");
-        ws.onMessage(jo.toString());
+    @Resource
+    private  WebSocketServiceImpl webSocketService;
+
+    @PostConstruct
+    public void init(){
+        System.out.println("init WebSocketTestImpl  成功");
     }
     @OnOpen
-    public void onOpen(@PathParam("username") String username, Session session) throws IOException {
+    public void onOpen(@PathParam("username") String username, Session session) throws IOException, InterruptedException {
 
         this.username = username;
         this.session = session;
@@ -32,21 +40,22 @@ public class WebSocketTest {
         addOnlineCount();
         clients.put(username, this);
         System.out.println("已连接");
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(1000L);
-                    chufa();
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        t.start();
+//        WebSocketTestImpl webSocketTestImpl = (WebSocketTestImpl)AopContext.currentProxy();
+        for(int i=0;i<10;i++){
+            webSocketService.chufa(i);
+        }
+//        Thread t = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    Thread.sleep(1000L);
+//
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//        t.start();
     }
 
     @OnClose
@@ -76,14 +85,14 @@ public class WebSocketTest {
     public void sendMessageTo(String message, String To) throws IOException {
         // session.getBasicRemote().sendText(message);
         //session.getAsyncRemote().sendText(message);
-        for (WebSocketTest item : clients.values()) {
+        for (WebSocketTestImpl item : clients.values()) {
             if (item.username.equals(To) )
                 item.session.getAsyncRemote().sendText(message);
         }
     }
 
     public void sendMessageAll(String message) throws IOException {
-        for (WebSocketTest item : clients.values()) {
+        for (WebSocketTestImpl item : clients.values()) {
             item.session.getAsyncRemote().sendText(message);
         }
     }
@@ -93,14 +102,19 @@ public class WebSocketTest {
     }
 
     public static synchronized void addOnlineCount() {
-        WebSocketTest.onlineCount++;
+        WebSocketTestImpl.onlineCount++;
     }
 
     public static synchronized void subOnlineCount() {
-        WebSocketTest.onlineCount--;
+        WebSocketTestImpl.onlineCount--;
     }
 
-    public static synchronized Map<String, WebSocketTest> getClients() {
+    public static synchronized Map<String, WebSocketTestImpl> getClients() {
         return clients;
+    }
+
+    @Override
+    public CompletableFuture chufa(int i) throws InterruptedException, IOException {
+        return null;
     }
 }

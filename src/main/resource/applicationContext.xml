@@ -21,28 +21,30 @@
 
 
     <!-- 自动扫描的包名，如果有多个包，请使用逗号隔开 -->
-    <context:component-scan base-package="com.*"/>
+    <!--<context:component-scan base-package="com.*"/>-->
 
     <!-- 默认的注解映射的支持 -->
     <mvc:annotation-driven/>
     <!-- 启动对aspectj的支持 -->
-    <aop:aspectj-autoproxy/>
+    <!--<aop:aspectj-autoproxy/>-->
+    <!-- expose-proxy 暴露代理 -->
+    <!--<aop:aspectj-autoproxy expose-proxy="true"/>  -->
 
 
     <!-- 自动搜索指定包及其子包下的所有Bean类 -->
     <context:component-scan base-package="com.*"/>
 
     <!--7 aspectj支持自动代理实现AOP功能 -->
-    <aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
+    <aop:aspectj-autoproxy proxy-target-class="true" expose-proxy="true"></aop:aspectj-autoproxy>
 
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix">
-            <value>/WEB-INF/pages/</value>
-        </property>
-        <property name="suffix">
-            <value>.html</value>
-        </property>
-    </bean>
+    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+        <!--<property name="prefix">-->
+            <!--<value>/WEB-INF/pages/</value>-->
+        <!--</property>-->
+        <!--<property name="suffix">-->
+            <!--<value>.html</value>-->
+        <!--</property>-->
+    <!--</bean>-->
     <!--<import resource="classpath*:/hsf-provider.xml" />-->
     <import resource="classpath*:/mysql.xml"/>
 
