@@ -41,12 +41,13 @@
         <!--<property name="prefix">-->
             <!--<value>/WEB-INF/pages/</value>-->
         <!--</property>-->
-        <!--<property name="suffix">-->
+        <!--<property name="suf fix">-->
             <!--<value>.html</value>-->
         <!--</property>-->
     <!--</bean>-->
     <!--<import resource="classpath*:/hsf-provider.xml" />-->
     <import resource="classpath*:/mysql.xml"/>
+    <!--<import resource="classpath*:/logback.xml"/>-->
 
 </beans>
 

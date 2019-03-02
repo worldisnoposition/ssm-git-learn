@@ -1,9 +1,13 @@
 package com.learn.zhiye.controller;
 
+//import ch.qos.logback.classic.Logger;
 import com.alibaba.fastjson.JSONObject;
 import com.learn.websocket.WebSocketServiceImpl;
 import com.learn.zhiye.service.ZhiyeService;
 import com.learn.zhiye.vo.ZhiyeVo;
+import com.test.log.LoggerBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.AopContext;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/entry")
 public class EntryController {
+    private static Logger logger = LoggerFactory.getLogger(EntryController.class);
     public static void main(String[] args) {
         int a=5;
         System.out.println(a++);
@@ -45,6 +50,8 @@ public class EntryController {
 
     @Resource
     private WebSocketServiceImpl webSocketService;
+    @Resource
+    private LoggerBuilder loggerBuilder;
     @PostConstruct
     public void init(){
         System.out.println("init EntryController成功");
@@ -56,6 +63,11 @@ public class EntryController {
     @RequestMapping(value="/chufa",name="/chufa",method = RequestMethod.POST,produces = "application/json; charset=UTF-8")
     public String chufa(@RequestBody String param) throws IOException, InterruptedException {
 //        Object o = AopContext.currentProxy();
+        Logger log1 = loggerBuilder.getLogger(param);
+        log1.info("hahaha");
+        logger.info("haha");
+//        Logger log2 = loggerBuilder.b("hahalog");
+//        log1.info("hahaha");
         String a = URLDecoder.decode(param,"utf-8");
         System.out.println(a+"");
         System.out.println(AopUtils.isAopProxy(this));
