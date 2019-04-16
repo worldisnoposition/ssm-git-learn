@@ -1,5 +1,7 @@
 package com.learn.leetcode.y20190121;
 
+import java.util.LinkedList;
+
 public class D20190416 {
     public class TreeNode {
         int val;
@@ -31,6 +33,41 @@ public class D20190416 {
                 }
             }
             return false;
+        }
+    }
+
+    public boolean isValidBST(TreeNode root) {
+        // if(root!=null){
+        //     if(root.left!=null&&root.val<=root.left.val){
+        //         return false;
+        //     }
+        //     if(root.right!=null&&root.val>=root.right.val){
+        //         return false;
+        //     }
+        //     return isValidBST(root.left)&&isValidBST(root.right);
+        // }
+        // return true;
+        LinkedList<Integer> l = new LinkedList();
+        putInList(root,l);
+        Integer val = null;
+        for(Integer v:l){
+            if(val==null){
+                val = v;
+                continue;
+            }
+            if(v<=val){
+                return false;
+            }else{
+                val=v;
+            }
+        }
+        return true;
+    }
+    public void putInList(TreeNode root, LinkedList l){
+        if(root!=null){
+            putInList(root.left,l);
+            l.add(root.val);
+            putInList(root.right,l);
         }
     }
 }
