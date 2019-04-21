@@ -34,6 +34,7 @@ public class D20190416 {
             }
             return false;
         }
+        int[] a={1,2,3,2,1,0,0,3,3,3};
     }
 
     public boolean isValidBST(TreeNode root) {
@@ -71,3 +72,5 @@ public class D20190416 {
         }
     }
 }
+
+
