@@ -27,20 +27,25 @@ public class OrderController {
 
     @RequestMapping("/index")
     @Transactional
-    public Object doneTransactional(){
+    public Object doneTransactional() {
         return "/index.";
     }
+
     @RequestMapping("/chufa")
     public Object add(@RequestBody String param) throws UnsupportedEncodingException {
         try {
+
             param = URLDecoder.decode(param, "utf-8");
-            param = param.substring(0, param.length() - 1);
             log.info(param);
-            List<ZhiyeEntity> list = JSONObject.parseArray(param, ZhiyeEntity.class);
-            zhiyeReposititoty.saveAll(list);
+            List<ZhiyeEntity> list = null;
+            if (param.endsWith("=")) {
+                param = param.substring(0, param.length() - 1);
+            }
+            list = JSONObject.parseArray(param, ZhiyeEntity.class);
+//            zhiyeReposititoty.saveAll(list);
             return "success";
-        }catch (Exception e){
-            log.error("报错了，{}", e);
+        } catch (Exception e) {
+            log.error("报错了,长度param.length{}，{}", param.length(), e);
             return "error";
         }
     }
