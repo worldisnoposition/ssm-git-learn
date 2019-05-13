@@ -1,7 +1,6 @@
-package com.spider.zhiye.jpa.testrest;
+package com.spider.zhiye.rest;
 
 import com.alibaba.fastjson.JSONObject;
-import com.spider.zhiye.jpa.entity.OrderEntity;
 import com.spider.zhiye.jpa.entity.ZhiyeEntity;
 import com.spider.zhiye.jpa.repository.ZhiyeReposititoty;
 import lombok.extern.slf4j.Slf4j;
@@ -9,12 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import sun.awt.AWTCharset;
 
 import javax.transaction.Transactional;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
