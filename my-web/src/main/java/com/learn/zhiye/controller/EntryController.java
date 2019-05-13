@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
@@ -18,7 +19,7 @@ import java.io.*;
 import java.net.URLDecoder;
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/entry")
 public class EntryController {
     private static Logger logger = LoggerFactory.getLogger(EntryController.class);
@@ -133,5 +134,10 @@ public class EntryController {
 //            e.printStackTrace();
 //        }
 //        return "{}";
+    }
+
+    @RequestMapping("/haha")
+    public String haha(){
+        return "index.html";
     }
 }

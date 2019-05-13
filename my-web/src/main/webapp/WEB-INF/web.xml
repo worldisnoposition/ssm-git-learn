@@ -18,7 +18,7 @@
 
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>classpath*:src/main/resource/applicationContext.xml</param-value>
+    <param-value>classpath*:/applicationContext.xml</param-value>
   </context-param>
 
   <listener>

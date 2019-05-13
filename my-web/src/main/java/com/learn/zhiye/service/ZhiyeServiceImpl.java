@@ -9,7 +9,7 @@ import java.util.List;
 
 @Component
 public class ZhiyeServiceImpl implements ZhiyeService{
-    @Resource
+//    @Resource
     private ZhiyeDAO zhiyeDAO;
     @Override
     public void saveZhiye(List<ZhiyeVo> list) {

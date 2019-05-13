@@ -4,9 +4,58 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="/vue.js"></script>
+
 </head>
 <body>
-    在这里写，调用三个网站的入口
-<
+    在这里写，调用三个网站的入口，可惜报错1asdf
+    <div id="app">
+        {{message}}
+
+        </table>
+    </div>
+    <script >
+        var app=new Vue({
+            el:"#app",
+            data:{
+                message:"123",
+                newitems:{
+                    name:'',
+                    age:'18',
+                    sex:'女'
+                },//newitems默认的
+                items:[{
+                    name:'lily',
+                    age:18,
+                    sex:'女'
+                },{
+                    name:'lily',
+                    age:18,
+                    sex:'女'
+                },{
+                    name:'lily',
+                    age:18,
+                    sex:'女'
+                },{
+                    name:'lily',
+                    age:18,
+                    sex:'女'
+                },{
+                    name:'lily',
+                    age:18,
+                    sex:'女'
+                }]
+            },
+            methods: {
+                addPerson: function () {
+                    this.items.push(this.newitems)
+                    this.newitems = {name: '', age: '18', sex: '女'}
+                },//添加元素
+                deletePerson: function (index) {
+                    // 删一个数组元素
+                    this.items.splice(index, 1);
+                }
+            }
+        })
+    </script>
 </body>
 </html>

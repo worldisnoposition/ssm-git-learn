@@ -38,12 +38,12 @@
     <aop:aspectj-autoproxy proxy-target-class="true" expose-proxy="true"></aop:aspectj-autoproxy>
 
     <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
-        <!--<property name="prefix">-->
-            <!--<value>/WEB-INF/pages/</value>-->
-        <!--</property>-->
-        <!--<property name="suf fix">-->
-            <!--<value>.html</value>-->
-        <!--</property>-->
+    <!--<property name="prefix">-->
+    <!--<value>/WEB-INF/pages/</value>-->
+    <!--</property>-->
+    <!--<property name="suf fix">-->
+    <!--<value>.html</value>-->
+    <!--</property>-->
     <!--</bean>-->
     <!--<import resource="classpath*:/hsf-provider.xml" />-->
     <!--<import resource="classpath*:/mysql.xml"/>-->
