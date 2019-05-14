@@ -1,4 +1,4 @@
-package com.spider.zhiye.rest;
+package com.spider.zhiye.Controller;
 
 import com.spider.zhiye.jpa.repository.SimpleWorkInfoRepository;
 import lombok.extern.slf4j.Slf4j;

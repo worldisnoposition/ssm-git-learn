@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/entry")
 @Slf4j
-public class OrderController {
+public class ZhiyeRest {
 
     @Autowired
     private ZhiyeReposititoty zhiyeReposititoty;
