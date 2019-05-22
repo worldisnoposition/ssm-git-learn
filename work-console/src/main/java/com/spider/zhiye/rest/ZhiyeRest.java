@@ -29,7 +29,7 @@ public class ZhiyeRest {
     }
 
     @RequestMapping("/chufa")
-    public Object add(@RequestBody String param) throws UnsupportedEncodingException {
+    public String add(@RequestBody String param) throws UnsupportedEncodingException {
         try {
 
             param = URLDecoder.decode(param, "utf-8");
@@ -39,8 +39,8 @@ public class ZhiyeRest {
                 param = param.substring(0, param.length() - 1);
             }
             list = JSONObject.parseArray(param, ZhiyeEntity.class);
-//            zhiyeReposititoty.saveAll(list);
-            return "success";
+            zhiyeReposititoty.saveAll(list);
+            return "500";
         } catch (Exception e) {
             log.error("报错了,长度param.length{}，{}", param.length(), e);
             return "error";
