@@ -2,13 +2,16 @@ package com.spider.zhiye.rest;
 
 import com.alibaba.fastjson.JSONObject;
 import com.spider.zhiye.jpa.entity.ZhiyeEntity;
+import com.spider.zhiye.jpa.repository.StatisticReposititoty;
 import com.spider.zhiye.jpa.repository.ZhiyeReposititoty;
+import com.spider.zhiye.service.WordSegmentationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.transaction.Transactional;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -21,6 +24,10 @@ public class ZhiyeRest {
 
     @Autowired
     private ZhiyeReposititoty zhiyeReposititoty;
+    @Resource
+    private WordSegmentationService wordSegmentationService;
+    @Autowired
+    private StatisticReposititoty statisticReposititoty;
 
     @RequestMapping("/index")
     @Transactional
@@ -51,4 +58,5 @@ public class ZhiyeRest {
     private Object queryAll() {
         return zhiyeReposititoty.findAll();
     }
+
 }

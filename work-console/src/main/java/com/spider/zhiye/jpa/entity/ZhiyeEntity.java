@@ -32,8 +32,8 @@ public class ZhiyeEntity {
     public String workYears;
     @JSONField(name = "学历")
     public String xueli;
-//    @JSONField(name = "要求")
-//    public String yaoqiu;
+    @JSONField(name = "要求")
+    public String yaoqiu;
     @JSONField(name = "公司名")
     public String companyName;
     @JSONField(name = "公司规模")

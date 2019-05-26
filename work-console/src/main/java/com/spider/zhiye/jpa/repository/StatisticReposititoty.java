@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface StatisticReposititoty extends CrudRepository<StatisticEntity, Long> {
     @Query(value = "select id,avg(moneyHigh) as avg_money_high,avg(moneyLow) as avg_money_low ,count(*) cnt,companyName as company_name,xueli,thirdName as third_name from zhiye.simple_work_info " +
-            "group by companyNo,xueli order by count(*) desc,companyNo", nativeQuery = true)
+            "where companyName is not null group by companyNo,xueli order by count(*) desc,companyNo limit 10", nativeQuery = true)
     List<StatisticEntity> selectByPkid();
 }

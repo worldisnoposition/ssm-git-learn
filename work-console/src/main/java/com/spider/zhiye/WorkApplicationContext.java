@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootConfiguration
 @Configuration
 @ImportResource(locations={"classpath:applicationContext.xml"})
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.spider.zhiye")
 @EnableJpaRepositories(basePackages = "com.spider.zhiye.jpa.repository")
 @EntityScan(basePackages = "com.spider.zhiye.jpa.entity")
 public class WorkApplicationContext {

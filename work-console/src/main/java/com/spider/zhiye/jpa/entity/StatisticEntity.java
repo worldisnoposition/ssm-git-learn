@@ -17,7 +17,7 @@ public class StatisticEntity {
     @JSONField(name = "avgMoneyHigh")
     private String avgMoneyHigh;
     private String avgMoneyLow;
-    private String cnt;
+    private Integer cnt;
     private String companyName;
     private String xueli;
     private String thirdName;
