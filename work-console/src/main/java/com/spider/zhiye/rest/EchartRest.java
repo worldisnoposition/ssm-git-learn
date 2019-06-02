@@ -1,21 +1,21 @@
 package com.spider.zhiye.rest;
 
-import com.alibaba.fastjson.JSONObject;
-import com.spider.zhiye.dto.StatisticByJobNumbers;
+import com.spider.zhiye.jpa.entity.WordCloudEntity;
+import com.spider.zhiye.jpa.entity.WordSegmentEntity;
+import com.spider.zhiye.jpa.repository.WordCloudReposititory;
+import com.spider.zhiye.vo.StatisticByJobNumbersVO;
 import com.spider.zhiye.jpa.entity.StatisticEntity;
-import com.spider.zhiye.jpa.entity.ZhiyeEntity;
 import com.spider.zhiye.jpa.repository.StatisticReposititoty;
 import com.spider.zhiye.jpa.repository.ZhiyeReposititoty;
 import com.spider.zhiye.service.WordSegmentationService;
+import com.spider.zhiye.vo.WordCloudVO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,18 +27,40 @@ public class EchartRest {
     @Autowired
     private StatisticReposititoty statisticReposititoty;
     @Autowired
-    private ZhiyeReposititoty zhiyeReposititoty;
+    private WordCloudReposititory wordCloudReposititory;
     @Resource
     private WordSegmentationService wordSegmentationService;
 
     @RequestMapping("/statistic")
-    private StatisticByJobNumbers statistic() {
+    private StatisticByJobNumbersVO statistic() {
         List<StatisticEntity> statisticEntities = statisticReposititoty.selectByPkid();
         return this.buildStatisticByJoByNumbers(statisticEntities);
     }
 
-    private StatisticByJobNumbers buildStatisticByJoByNumbers(List<StatisticEntity> statisticEntities) {
-        StatisticByJobNumbers result = new StatisticByJobNumbers();
+    @RequestMapping("/wordCloud")
+    private List<WordCloudVO> wordCloud() {
+        List<WordCloudEntity> wordCloudEntities = wordCloudReposititory.selectWordCloud();
+        return this.buildWordCloudVOs(wordCloudEntities);
+    }
+
+    private List<WordCloudVO> buildWordCloudVOs(List<WordCloudEntity> wordCloudEntities) {
+        List<WordCloudVO> wordCloudVOList = new ArrayList<>();
+        wordCloudEntities.forEach(w -> {
+            WordCloudVO wordCloudVO = new WordCloudVO();
+            BeanUtils.copyProperties(w, wordCloudVO);
+            wordCloudVOList.add(wordCloudVO);
+        });
+        return wordCloudVOList;
+    }
+
+    @RequestMapping("/segment")
+    private Object wordSegment() {
+        wordSegmentationService.startJob();
+        return null;
+    }
+
+    private StatisticByJobNumbersVO buildStatisticByJoByNumbers(List<StatisticEntity> statisticEntities) {
+        StatisticByJobNumbersVO result = new StatisticByJobNumbersVO();
         List<String> companyNames = new ArrayList<>();
         List<Integer> jobNumbers = new ArrayList<>();
         statisticEntities.forEach(statisticEntity -> {
@@ -50,11 +72,6 @@ public class EchartRest {
         return result;
     }
 
-    @RequestMapping("/segment")
-    private Object wordSegment() {
-        wordSegmentationService.startJob();
-        return null;
-    }
 
 //    @RequestMapping("/chufa")
 //    public String add(@RequestBody String param) throws UnsupportedEncodingException {

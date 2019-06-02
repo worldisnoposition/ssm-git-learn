@@ -79,10 +79,10 @@ public class ZhiyeRest {
             BeanUtils.copyProperties(zhiyeDTO.getCompanyDetail(), jobDetailEntity);
             BeanUtils.copyProperties(zhiyeDTO.getJobDetail(), jobDetailEntity);
             jobDetailRepository.saveAndFlush(jobDetailEntity);
-            return (int)(Math.random() * 5000) + "";
+            return (int)(Math.random() * 20000) + "";
         } catch (Exception e) {
             log.error("报错了,长度param.length{}，{}", param.length(), e);
-            return (int)(Math.random() * 5000) + "";
+            return (int)(Math.random() * 2) + "";
         }
     }
 

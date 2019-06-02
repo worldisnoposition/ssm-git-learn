@@ -24,6 +24,11 @@
             <version>5.1.6.RELEASE</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.10</version>
+        </dependency>
     </dependencies>
     <build>
         <!--最终生成的war文件名-->
