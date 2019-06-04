@@ -34,7 +34,7 @@ public class DealWithSegmentJob {
     private void init() {
         WordConfTools.set("dic.path", "classpath:dic.txt，D:\\coding\\java\\ssm-git-learn\\work-console\\src\\main\\resources\\dict\\dic.txt");
         WordConfTools.set("stopwords.path", "classpath:stopwords.txt，D:\\coding\\java\\ssm-git-learn\\work-console\\src\\main\\resources\\dict\\stopwords.txt");
-        wordSegmentationUtil.segment("自定义啊词库分啊词表自定义啊词库分啊词表自定义啊词库").forEach(System.out::println);
+//        wordSegmentationUtil.segment("自定义啊词库分啊词表自定义啊词库分啊词表自定义啊词库").forEach(System.out::println);
 //        job();
 //        init();
 //        jobDetailRepository.findAll();
@@ -43,7 +43,7 @@ public class DealWithSegmentJob {
     private void job() {
         for (int i = 0; ; i++) {
             try {
-                Pageable pageable = new PageRequest(i, 1, Sort.Direction.ASC, PROPERTY_NAME_JOB_ID);
+                Pageable pageable = new PageRequest(0, 1, Sort.Direction.ASC, PROPERTY_NAME_JOB_ID);
                 List<JobDetailEntity> jobDetailEntities = jobDetailRepository.findAll(pageable).getContent();
                 if (jobDetailEntities == null || jobDetailEntities.size() == 0) {
                     break;
