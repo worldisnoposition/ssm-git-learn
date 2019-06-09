@@ -1,6 +1,7 @@
 spring:
   thymeleaf:
     prefix: classpath:/templates/
+
 devtools:
   restart:
   #热部署生效
@@ -9,3 +10,4 @@ devtools:
   additional-paths: resources/**,static/**,templates/**
   #该目录下的内容修改不重启
   exclude: data/**
+
