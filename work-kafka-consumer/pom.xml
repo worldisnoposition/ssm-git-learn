@@ -9,7 +9,7 @@
         <version>1.0.0-snapshot</version>
     </parent>
     <groupId>com.auto.kafka</groupId>
-    <artifactId>work-kafka-producer</artifactId>
+    <artifactId>work-kafka-consumer</artifactId>
     <version>1.0-SNAPSHOT</version>
     <dependencies>
         <dependency>

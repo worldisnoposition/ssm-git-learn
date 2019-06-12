@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
 
-@Component
+//@Component
 @Slf4j
 @EnableScheduling
 public class KafkaConsumer {
@@ -56,14 +56,6 @@ public class KafkaConsumer {
     @KafkaListener(topics = {"app_log"})
     public void listen2(String record) {
         log.info("kafka2的key: " + record);
-//        log.info("kafka的value: " + record.value().toString());
-    }
-    /**
-     * 定时任务
-     */
-    @KafkaListener(topics = {"app_log"})
-    public void listen3(String record) {
-        log.info("kafka3的key: " + record);
 //        log.info("kafka的value: " + record.value().toString());
     }
 

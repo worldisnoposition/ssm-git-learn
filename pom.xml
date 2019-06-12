@@ -8,7 +8,8 @@
     <modules>
         <module>my-web</module>
         <module>work-console</module>
-        <module>work-kafka</module>
+        <module>work-kafka-producer</module>
+        <module>work-kafka-consumer</module>
     </modules>
     <name>CounterWebApp Maven Webapp</name>
     <url>http://maven.apache.org</url>

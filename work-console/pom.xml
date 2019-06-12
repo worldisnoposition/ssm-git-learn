@@ -110,7 +110,12 @@
         </dependency>
         <dependency>
             <groupId>com.auto.kafka</groupId>
-            <artifactId>work-kafka</artifactId>
+            <artifactId>work-kafka-producer</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.auto.kafka</groupId>
+            <artifactId>work-kafka-consumer</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

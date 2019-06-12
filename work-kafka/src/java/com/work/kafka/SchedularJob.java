@@ -14,9 +14,9 @@ public class SchedularJob {
      * 定时任务
      */
 
-    @Scheduled(cron = "0/1 * * * * ?")
+//    @Scheduled(cron = "0/1 * * * * ?")
     private void job(){
-        for(int i=0;i<10;i++){
+        for(int i=0;i<1;i++){
             kafkaProducer.send(i);
         }
     }
