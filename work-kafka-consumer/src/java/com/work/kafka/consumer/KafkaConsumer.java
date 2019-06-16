@@ -1,4 +1,4 @@
-package com.work.kafka;
+package com.work.kafka.consumer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
 
-//@Component
+@Component
 @Slf4j
 @EnableScheduling
 public class KafkaConsumer {
@@ -42,17 +42,11 @@ public class KafkaConsumer {
         factory.getContainerProperties().setPollTimeout(3000);
         return factory;
     }
-    /**
-     * 定时任务
-     */
     @KafkaListener(topics = {"app_log"})
     public void listen1(String record) {
         log.info("kafka1的key: " + record);
 //        log.info("kafka的value: " + record.value().toString());
     }
-    /**
-     * 定时任务
-     */
     @KafkaListener(topics = {"app_log"})
     public void listen2(String record) {
         log.info("kafka2的key: " + record);
