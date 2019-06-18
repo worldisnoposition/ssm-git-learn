@@ -16,7 +16,7 @@ public class SchedularJob {
 
     @Scheduled(cron = "0/30 * * * * ?")
     private void job(){
-        for(int i=0;i<1;i++){
+        for(int i=0;i<30;i++){
             kafkaProducer.send(i);
         }
     }

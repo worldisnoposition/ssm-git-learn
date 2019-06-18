@@ -38,16 +38,17 @@ public class KafkaConsumer {
         ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(new DefaultKafkaConsumerFactory(consumerProps()));
         factory.setConcurrency(4);
-        factory.setBatchListener(true);
+        //批量接收消息,设为false不要批量
+        factory.setBatchListener(false);
         factory.getContainerProperties().setPollTimeout(3000);
         return factory;
     }
-    @KafkaListener(topics = {"app_log"})
+    @KafkaListener(topics = {"app_log"},groupId = "listener1")
     public void listen1(String record) {
         log.info("kafka1的key: " + record);
 //        log.info("kafka的value: " + record.value().toString());
     }
-    @KafkaListener(topics = {"app_log"})
+    @KafkaListener(topics = {"app_log"},groupId = "listener1")
     public void listen2(String record) {
         log.info("kafka2的key: " + record);
 //        log.info("kafka的value: " + record.value().toString());
