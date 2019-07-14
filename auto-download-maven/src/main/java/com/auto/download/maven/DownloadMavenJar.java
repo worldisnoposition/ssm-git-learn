@@ -9,30 +9,31 @@ import java.util.Collections;
 
 public class DownloadMavenJar {
 
-
-    public static void main(String[] args) {
+    private final static String pomFilePath = "H:\\ssm-git-learn\\auto-download-maven\\pom.xml";
+    private final static String mavenHomePath = "F:\\apache\\apache-maven-3.5.0";
+    private final static String repositoryDirectory = "H:\\downloadMavenAutoRepository";
+    private final static String remoteRepositoryUrl = "http://repo1.maven.org/maven2/";
+    public static void download() {
         InvocationRequest request = new DefaultInvocationRequest();
-        request.setPomFile(new File("D:\\coding\\java\\ssm-git-learn\\auto-download-maven\\pom.xml"));
-        request.setGoals(Collections.singletonList("compile"));
+        request.setPomFile(new File(pomFilePath));
+        request.setLocalRepositoryDirectory(new File(repositoryDirectory));
+        PomBaseParam pomBaseParam = new PomBaseParam("junit","junit","4.8.2");
+        CommandDomain commandDomain = new CommandDomain();
+        String singletonCommand = "dependency:get -DremoteRepositories=%s %s";
+        singletonCommand = String.format(singletonCommand, remoteRepositoryUrl, pomBaseParam.getCommondBaseInfo());
+        request.setGoals(Collections.singletonList(singletonCommand));
 
         Invoker invoker = new DefaultInvoker();
-        invoker.setMavenHome(new File("D:\\程序包\\apache-maven-3.5.0"));
+        invoker.setMavenHome(new File(mavenHomePath));
 
         invoker.setLogger(new PrintStreamLogger(System.out, InvokerLogger.INFO) {
 
         });
         invoker.setOutputHandler(new InvocationOutputHandler() {
             public void consumeLine(String s) throws IOException {
+                System.out.println(s);
             }
         });
-
-
-//        try {
-//            invoker.execute(request);
-//        } catch (MavenInvocationException e) {
-//            e.printStackTrace();
-//        }
-
 
         try {
             if (invoker.execute(request).getExitCode() == 0) {

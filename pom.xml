@@ -10,6 +10,7 @@
         <module>work-console</module>
         <module>work-kafka-producer</module>
         <module>work-kafka-consumer</module>
+        <module>word-segmentation</module>
     </modules>
     <name>CounterWebApp Maven Webapp</name>
     <url>http://maven.apache.org</url>
