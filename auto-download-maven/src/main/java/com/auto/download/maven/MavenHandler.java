@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 
-public class DownloadMavenJar {
+public class MavenHandler {
 
     private final static String pomFilePath = "H:\\ssm-git-learn\\auto-download-maven\\pom.xml";
     private final static String mavenHomePath = "F:\\apache\\apache-maven-3.5.0";
@@ -18,9 +18,11 @@ public class DownloadMavenJar {
         request.setPomFile(new File(pomFilePath));
         request.setLocalRepositoryDirectory(new File(repositoryDirectory));
         PomBaseParam pomBaseParam = new PomBaseParam("junit","junit","4.8.2");
-        CommandDomain commandDomain = new CommandDomain();
-        String singletonCommand = "dependency:get -DremoteRepositories=%s %s";
-        singletonCommand = String.format(singletonCommand, remoteRepositoryUrl, pomBaseParam.getCommondBaseInfo());
+        Command command = new Command();
+        command.setRoot(CommandEnum.DOWNDLOAD_GET.getCommand());
+        command.appendCommand(pomBaseParam);
+        String singletonCommand = String.format(command.fullCommandStr(), remoteRepositoryUrl, pomBaseParam.getCommondBaseInfo());
+        System.out.println(singletonCommand);
         request.setGoals(Collections.singletonList(singletonCommand));
 
         Invoker invoker = new DefaultInvoker();
