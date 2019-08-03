@@ -1,4 +1,4 @@
-package com.auto.download.classloader;
+package com.auto.deal.classloader;
 
 import java.io.*;
 
@@ -8,6 +8,8 @@ public class DynamicClassLoader extends ClassLoader {
     public DynamicClassLoader(String classpath) {
         this.classpath = classpath;
     }
+
+    @Override
     protected synchronized Class<?> loadClass(String name,boolean resolve)throws ClassNotFoundException{
         //check the class has been loaded or not
         Class c = findLoadedClass(name);

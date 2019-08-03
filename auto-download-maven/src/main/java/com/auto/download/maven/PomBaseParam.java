@@ -2,9 +2,7 @@ package com.auto.download.maven;
 
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Data
@@ -32,6 +30,7 @@ public class PomBaseParam extends BaseCommand {
         return String.format(commonad, this.groupId, this.artifactId, this.version);
     }
 
+    @Override
     Map getCommandMap() {
         return pomMap;
     }

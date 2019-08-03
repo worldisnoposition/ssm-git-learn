@@ -8,25 +8,22 @@ import java.io.IOException;
 import java.util.Collections;
 
 public class MavenHandler {
+    private final static BaseConfig baseConfig = BaseConfig.TAISHIJI_ENV;
 
-    private final static String pomFilePath = "H:\\ssm-git-learn\\auto-download-maven\\pom.xml";
-    private final static String mavenHomePath = "F:\\apache\\apache-maven-3.5.0";
-    private final static String repositoryDirectory = "H:\\downloadMavenAutoRepository";
-    private final static String remoteRepositoryUrl = "http://repo1.maven.org/maven2/";
     public static void download() {
         InvocationRequest request = new DefaultInvocationRequest();
-        request.setPomFile(new File(pomFilePath));
-        request.setLocalRepositoryDirectory(new File(repositoryDirectory));
-        PomBaseParam pomBaseParam = new PomBaseParam("junit","junit","4.8.2");
+        request.setPomFile(new File(baseConfig.getPomFilePath()));
+        request.setLocalRepositoryDirectory(new File(baseConfig.getRepositoryDirectory()));
+        PomBaseParam pomBaseParam = new PomBaseParam("org.projectlombok", "lombok", "1.16.10");
         Command command = new Command();
         command.setRoot(CommandEnum.DOWNDLOAD_GET.getCommand());
         command.appendCommand(pomBaseParam);
-        String singletonCommand = String.format(command.fullCommandStr(), remoteRepositoryUrl, pomBaseParam.getCommondBaseInfo());
+        String singletonCommand = String.format(command.fullCommandStr(), baseConfig.getRemoteRepositoryUrl(), pomBaseParam.getCommondBaseInfo());
         System.out.println(singletonCommand);
         request.setGoals(Collections.singletonList(singletonCommand));
 
         Invoker invoker = new DefaultInvoker();
-        invoker.setMavenHome(new File(mavenHomePath));
+        invoker.setMavenHome(new File(baseConfig.getMavenHomePath()));
 
         invoker.setLogger(new PrintStreamLogger(System.out, InvokerLogger.INFO) {
 
