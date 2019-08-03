@@ -10,9 +10,12 @@
         <module>work-console</module>
         <module>work-kafka-producer</module>
         <module>work-kafka-consumer</module>
+        <module>auto-download-maven</module>
+        <module>word-segmentation</module>
     </modules>
     <name>CounterWebApp Maven Webapp</name>
-    <url>http://maven.apache.org</url>
+    <!--<url>http://maven.apache.org</url>-->
+    <url>http://maven.oschina.net/content/groups/public/</url>
 
     <dependencies>
         <dependency>
