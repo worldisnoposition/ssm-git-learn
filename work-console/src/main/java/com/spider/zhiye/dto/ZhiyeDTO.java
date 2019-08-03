@@ -1,7 +1,6 @@
 package com.spider.zhiye.dto;
 
 import lombok.Data;
-import org.apdplat.word.vector.F;
 
 @Data
 public class ZhiyeDTO {
