@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Data
-public class PomBaseParam extends BaseCommand {
+public class PomBaseParam extends MavenBaseCommand {
     private String groupId;
     private Map<String, String> pomMap = new HashMap<String, String>();
     private final static String GROUP_ID = "groupId";

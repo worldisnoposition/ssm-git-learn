@@ -1,4 +1,4 @@
-package com.auto.deal.proxy;
+package com.auto.proxy;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

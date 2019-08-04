@@ -1,4 +1,6 @@
-package com.auto.deal.proxy.test;
+package com.auto.service;
+
+import com.auto.client.TestService;
 
 public class TestServiceImpl implements TestService {
     @Override

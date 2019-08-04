@@ -5,7 +5,7 @@ import lombok.Setter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Command {
+public class MavenCommand {
     @Setter
     @Getter
     private String root;
@@ -18,7 +18,7 @@ public class Command {
         commandMap.put(key, val);
     }
 
-    public void appendCommand(BaseCommand base){
+    public void appendCommand(MavenBaseCommand base){
         commandMap.putAll(base.getCommandMap());
     }
 

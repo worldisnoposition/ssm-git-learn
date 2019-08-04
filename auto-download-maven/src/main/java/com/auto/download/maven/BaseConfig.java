@@ -3,11 +3,11 @@ package com.auto.download.maven;
 import lombok.Getter;
 
 public enum BaseConfig {
-    TAISHIJI_ENV("D:\\coding\\java\\ssm-git-learn\\auto-download-maven\\pom.xml"
+    TAISHIJI_ENV("D:\\coding\\java\\ssm-git-learn\\auto-downloadJarFile-maven\\pom.xml"
             , "D:\\Program File\\apache-maven-3.5.0"
             , "D:\\data\\mavenWarehouDownload"
             , "http://repo1.maven.org/maven2/"),
-    BIJIBEN_ENV("H:\\ssm-git-learn\\auto-download-maven\\pom.xml"
+    BIJIBEN_ENV("H:\\ssm-git-learn\\auto-downloadJarFile-maven\\pom.xml"
             , "F:\\apache\\apache-maven-3.5.0"
             , "H:\\downloadMavenAutoRepository"
             , "http://repo1.maven.org/maven2/");

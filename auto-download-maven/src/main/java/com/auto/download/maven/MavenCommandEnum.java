@@ -1,12 +1,11 @@
 package com.auto.download.maven;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-public enum CommandEnum {
+public enum MavenCommandEnum {
 
-    DOWNDLOAD_GET("download:get", "下载"),
+    DOWNDLOAD_GET("downloadJarFile:get", "下载"),
     DEPENDENCY_GET("dependency:get", "dependency"),
     PACKAGE("package", "打包");
     @Setter
@@ -19,7 +18,7 @@ public enum CommandEnum {
     @Getter
     private String formatCommand;
 
-    CommandEnum(String command, String desc) {
+    MavenCommandEnum(String command, String desc) {
         this.command = command;
         this.desc = desc;
     }

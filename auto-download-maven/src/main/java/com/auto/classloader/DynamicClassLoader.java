@@ -1,12 +1,30 @@
-package com.auto.deal.classloader;
+package com.auto.classloader;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 
+@Slf4j
 public class DynamicClassLoader extends ClassLoader {
+    private final static String defaultVersion = "1.0.0-SNAPSHOT";
+    @Setter
+    @Getter
     private String classpath;
+
+    @Setter
+    @Getter
+    private String version ;
+
+    public DynamicClassLoader(String classpath, String version) {
+        this.classpath = classpath;
+        this.version = version;
+    }
 
     public DynamicClassLoader(String classpath) {
         this.classpath = classpath;
+        this.version = defaultVersion;
     }
 
     @Override
