@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
+import static java.lang.Class.*;
+
 @Component
 @Slf4j
 public class DownloadClassMavenImp implements ClassDownloader {
@@ -15,7 +17,11 @@ public class DownloadClassMavenImp implements ClassDownloader {
     private String defaultClassPath;
 
     @PostConstruct
-    public void init() {
+    public void init() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+        Class clazz = Class.forName("java.lang.String");
+        Object object = clazz.newInstance();
+        System.out.println(object.getClass().getName());
+
         defaultClassPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
         log.info("defaultClassPath is inited,defaultClassPath = {}", defaultClassPath);
     }
