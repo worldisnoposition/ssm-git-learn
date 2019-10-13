@@ -12,6 +12,7 @@
         <module>work-kafka-consumer</module>
         <module>auto-download-maven</module>
         <module>word-segmentation</module>
+        <module>transaction</module>
     </modules>
     <name>CounterWebApp Maven Webapp</name>
     <!--<url>http://maven.apache.org</url>-->
