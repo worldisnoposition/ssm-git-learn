@@ -64,14 +64,19 @@ public class AnnotationAop {
         return proceed;
     }
 
-//    @Around(value = "@args(myTransactionArgs)")
-//    private Object doAroundAnnotationArgs(ProceedingJoinPoint proceedingJoinPoint,  MyTransactionArgs myTransactionArgs) throws Throwable {
-//        log.info("into doAroundAnnotationArgs aop :{}",myTransactionArgs);
-//        log.info(proceedingJoinPoint.toLongString());
-//        Object proceed = proceedingJoinPoint.proceed();
-//        log.info(String.valueOf(proceed));
-//        return proceed;
-//    }
+    @Around(value = "pointCut() && @annotation(myTransactionMethod) ")
+    private Object doAroundAnnotationArgs(ProceedingJoinPoint proceedingJoinPoint,  MyTransactionMethod myTransactionMethod) throws Throwable {
+        log.info("into doAroundAnnotationArgs aop :{}",myTransactionMethod.enhanceMethod());
+        log.info(proceedingJoinPoint.toLongString());
+        Object proceed = proceedingJoinPoint.proceed();
+        Object target = proceedingJoinPoint.getTarget();
+        Class clazz = target.getClass();
+        Method method = clazz.getDeclaredMethod(myTransactionMethod.enhanceMethod());
+        method.setAccessible(true);
+        method.invoke(target);
+        log.info(String.valueOf(proceed));
+        return proceed;
+    }
 
 //    @Around(value = "@annotation(com.mark.transaction.annotation.MyTransactionMethod) && args(enhance)")
 //    private Object doAroundAnnotation(ProceedingJoinPoint proceedingJoinPoint, String enhance) throws Throwable {
